@@ -1,0 +1,474 @@
+{
+    "enums": {
+        "HAL_StatusTypeDef": {
+            "HAL_OK": {
+                "value": 0,
+                "comment": ""
+            },
+            "HAL_ERROR": {
+                "value": 1,
+                "comment": ""
+            },
+            "HAL_BUSY": {
+                "value": 2,
+                "comment": ""
+            },
+            "HAL_TIMEOUT": {
+                "value": 3,
+                "comment": ""
+            }
+        },
+        "HAL_LockTypeDef": {
+            "HAL_UNLOCKED": {
+                "value": 0,
+                "comment": ""
+            },
+            "HAL_LOCKED": {
+                "value": 32,
+                "comment": ""
+            }
+        },
+        "HAL_UART_StateTypeDef": {
+            "HAL_UART_STATE_RESET": {
+                "value": 0,
+                "comment": "Peripheral is not yet Initialized"
+            },
+            "HAL_UART_STATE_READY": {
+                "value": 32,
+                "comment": "Peripheral Initialized and ready for use"
+            },
+            "HAL_UART_STATE_BUSY": {
+                "value": 36,
+                "comment": "an internal process is ongoing"
+            },
+            "HAL_UART_STATE_BUSY_TX": {
+                "value": 33,
+                "comment": "Data Transmission process is ongoing"
+            },
+            "HAL_UART_STATE_BUSY_RX": {
+                "value": 34,
+                "comment": "Data Reception process is ongoing"
+            },
+            "HAL_UART_STATE_BUSY_TX_RX": {
+                "value": 35,
+                "comment": "Data Transmission and Reception process is ongoing"
+            },
+            "HAL_UART_STATE_TIMEOUT": {
+                "value": 160,
+                "comment": "Timeout state"
+            },
+            "HAL_UART_STATE_ERROR": {
+                "value": 224,
+                "comment": "Error"
+            }
+        },
+        "GPIO_PinState": {
+            "GPIO_PIN_RESET": {
+                "value": 0,
+                "comment": ""
+            },
+            "GPIO_PIN_SET": {
+                "value": 1,
+                "comment": ""
+            }
+        },
+        "HAL_DMA_StateTypeDef": {
+            "HAL_DMA_STATE_RESET": {
+                "value": 0,
+                "comment": "DMA not yet initialized or disabled"
+            },
+            "HAL_DMA_STATE_READY": {
+                "value": 1,
+                "comment": "DMA initialized and ready for use"
+            },
+            "HAL_DMA_STATE_BUSY": {
+                "value": 2,
+                "comment": "DMA process is ongoing"
+            },
+            "HAL_DMA_STATE_TIMEOUT": {
+                "value": 3,
+                "comment": "DMA timeout state"
+            },
+            "HAL_DMA_STATE_ERROR": {
+                "value": 4,
+                "comment": "DMA error state"
+            },
+            "HAL_DMA_STATE_ABORT": {
+                "value": 5,
+                "comment": "DMA Abort state"
+            }
+        }
+    },
+    "structs": {
+        "GPIO_InitTypeDef": {
+            "description": "GPIO Init structure definition",
+            "struct": {
+                "Pin": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the GPIO pins to be configured."
+                },
+                "Mode": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the operating mode for the selected pins."
+                },
+                "Pull": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the Pull-up or Pull-Down activation for the selected pins."
+                },
+                "Speed": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the speed for the selected pins."
+                },
+                "Alternate": {
+                    "type": "uint32_t",
+                    "comment": "Peripheral to be connected to the selected pins."
+                }
+            }
+        },
+        "GPIO_TypeDef": {
+            "description": "General Purpose I/O",
+            "struct": {
+                "MODER": {
+                    "type": "uint32_t",
+                    "comment": "GPIO port mode register"
+                },
+                "OTYPER": {
+                    "type": "uint32_t",
+                    "comment": "GPIO port output type register"
+                },
+                "OSPEEDR": {
+                    "type": "uint32_t",
+                    "comment": "GPIO port output speed register"
+                },
+                "PUPDR": {
+                    "type": "uint32_t",
+                    "comment": "GPIO port pull-up/pull-down register"
+                },
+                "IDR": {
+                    "type": "uint32_t",
+                    "comment": "GPIO port input data register"
+                },
+                "ODR": {
+                    "type": "uint32_t",
+                    "comment": "GPIO port output data register"
+                },
+                "BSRR": {
+                    "type": "uint32_t",
+                    "comment": "GPIO port bit set/reset register"
+                },
+                "LCKR": {
+                    "type": "uint32_t",
+                    "comment": "GPIO port configuration lock register"
+                },
+                "AFR": {
+                    "type": "uint32_t[2]",
+                    "comment": "GPIO alternate function registers"
+                }
+            }
+        },
+        "DMA_Stream_TypeDef": {
+            "description": "",
+            "struct": {
+                "CR": {
+                    "type": "uint32_t",
+                    "comment": "DMA stream x configuration register"
+                },
+                "NDTR": {
+                    "type": "uint32_t",
+                    "comment": "DMA stream x number of data register"
+                },
+                "PAR": {
+                    "type": "uint32_t",
+                    "comment": "DMA stream x peripheral address register"
+                },
+                "M0AR": {
+                    "type": "uint32_t",
+                    "comment": "DMA stream x memory 0 address register"
+                },
+                "M1AR": {
+                    "type": "uint32_t",
+                    "comment": "DMA stream x memory 1 address register"
+                },
+                "FCR": {
+                    "type": "uint32_t",
+                    "comment": "DMA stream x FIFO control register"
+                }
+            }
+        },
+        "DMA_TypeDef": {
+            "description": "",
+            "struct": {
+                "LISR": {
+                    "type": "uint32_t",
+                    "comment": "DMA low interrupt status register"
+                },
+                "HISR": {
+                    "type": "uint32_t",
+                    "comment": "DMA high interrupt status register"
+                },
+                "LIFCR": {
+                    "type": "uint32_t",
+                    "comment": "DMA low interrupt flag clear register"
+                },
+                "HIFCR": {
+                    "type": "uint32_t",
+                    "comment": "DMA high interrupt flag clear register"
+                }
+            }
+        },
+        "DMA_InitTypeDef": {
+            "description": "DMA Configuration Structure definition",
+            "struct": {
+                "Channel": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the channel used for the specified stream."
+                },
+                "Direction": {
+                    "type": "uint32_t",
+                    "comment": "Specifies if the data will be transferred from memory to peripheral, from memory to memory or from peripheral to memory."
+                },
+                "PeriphInc": {
+                    "type": "uint32_t",
+                    "comment": "Specifies whether the Peripheral address register should be incremented or not."
+                },
+                "MemInc": {
+                    "type": "uint32_t",
+                    "comment": "Specifies whether the memory address register should be incremented or not."
+                },
+                "PeriphDataAlignment": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the Peripheral data width."
+                },
+                "MemDataAlignment": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the Memory data width."
+                },
+                "Mode": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the operation mode of the DMAy Streamx."
+                },
+                "Priority": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the software priority for the DMAy Streamx."
+                },
+                "FIFOMode": {
+                    "type": "uint32_t",
+                    "comment": "Specifies if the FIFO mode or Direct mode will be used for the specified stream."
+                },
+                "FIFOThreshold": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the FIFO threshold level."
+                },
+                "MemBurst": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the Burst transfer configuration for the memory transfers."
+                },
+                "PeriphBurst": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the Burst transfer configuration for the peripheral transfers."
+                }
+            }
+        },
+        "DMA_HandleTypeDef": {
+            "description": "DMA handle Structure definition",
+            "struct": {
+                "Instance": {
+                    "type": "DMA_Stream_TypeDef *",
+                    "comment": "Register base address"
+                },
+                "Init": {
+                    "type": "DMA_InitTypeDef",
+                    "comment": "DMA communication parameters"
+                },
+                "Lock": {
+                    "type": "HAL_LockTypeDef",
+                    "comment": "DMA locking object"
+                },
+                "State": {
+                    "type": "HAL_DMA_StateTypeDef",
+                    "comment": "DMA transfer state"
+                },
+                "Parent": {
+                    "type": "void *",
+                    "comment": "Parent object state"
+                },
+                "XferCpltCallback": {
+                    "type": "void *",
+                    "comment": "DMA transfer complete callback"
+                },
+                "XferHalfCpltCallback": {
+                    "type": "void *",
+                    "comment": "DMA Half transfer complete callback"
+                },
+                "XferM1CpltCallback": {
+                    "type": "void *",
+                    "comment": "DMA transfer complete Memory1 callback"
+                },
+                "XferM1HalfCpltCallback": {
+                    "type": "void *",
+                    "comment": "DMA transfer Half complete Memory1 callback"
+                },
+                "XferErrorCallback": {
+                    "type": "void *",
+                    "comment": "DMA transfer error callback"
+                },
+                "XferAbortCallback": {
+                    "type": "void *",
+                    "comment": "DMA transfer Abort callback"
+                },
+                "ErrorCode": {
+                    "type": "uint32_t",
+                    "comment": "DMA Error code"
+                },
+                "StreamBaseAddress": {
+                    "type": "uint32_t",
+                    "comment": "DMA Stream Base Address"
+                },
+                "StreamIndex": {
+                    "type": "uint32_t",
+                    "comment": "DMA Stream Index"
+                }
+            }
+        },
+        "HAL_UART_RxTypeTypeDef": {
+            "description": "HAL UART Reception type definition",
+            "struct": {
+                "HAL_UART_RxTypeTypeDef": {
+                    "type": "uint32_t",
+                    "comment": ""
+                }
+            }
+        },
+        "USART_TypeDef": {
+            "description": "UART Init Structure definition",
+            "struct": {
+                "SR": {
+                    "type": "uint32_t",
+                    "comment": "USART Status register"
+                },
+                "DR": {
+                    "type": "uint32_t",
+                    "comment": "USART Data register"
+                },
+                "BRR": {
+                    "type": "uint32_t",
+                    "comment": "USART Baud rate register"
+                },
+                "CR1": {
+                    "type": "uint32_t",
+                    "comment": "USART Control register 1"
+                },
+                "CR2": {
+                    "type": "uint32_t",
+                    "comment": "USART Control register 2"
+                },
+                "CR3": {
+                    "type": "uint32_t",
+                    "comment": "USART Control register 3"
+                },
+                "GTPR": {
+                    "type": "uint32_t",
+                    "comment": "USART Guard time and prescaler register"
+                }
+            }
+        },
+        "UART_InitTypeDef": {
+            "description": "UART Init Structure definition",
+            "struct": {
+                "BaudRate": {
+                    "type": "uint32_t",
+                    "comment": "This member configures the UART communication baud rate."
+                },
+                "WordLength": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the number of data bits transmitted or received in a frame."
+                },
+                "StopBits": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the number of stop bits transmitted."
+                },
+                "Parity": {
+                    "type": "uint32_t",
+                    "comment": "Specifies the parity mode."
+                },
+                "Mode": {
+                    "type": "uint32_t",
+                    "comment": "Specifies whether the Receive or Transmit mode is enabled or disabled."
+                },
+                "HwFlowCtl": {
+                    "type": "uint32_t",
+                    "comment": "Specifies whether the hardware flow control mode is enabled or disabled."
+                },
+                "OverSampling": {
+                    "type": "uint32_t",
+                    "comment": "Specifies whether the Over sampling 8 is enabled or disabled, to achieve higher speed (up to fPCLK/8)."
+                }
+            }
+        },
+        "UART_HandleTypeDef": {
+            "description": "UART handle Structure definition",
+            "struct": {
+                "Instance": {
+                    "type": "USART_TypeDef *",
+                    "comment": "UART registers base address"
+                },
+                "Init": {
+                    "type": "UART_InitTypeDef",
+                    "comment": "UART communication parameters"
+                },
+                "pTxBuffPtr": {
+                    "type": "uint8_t *",
+                    "comment": "Pointer to UART Tx transfer Buffer"
+                },
+                "TxXferSize": {
+                    "type": "uint16_t",
+                    "comment": "UART Tx Transfer size"
+                },
+                "TxXferCount": {
+                    "type": "uint16_t",
+                    "comment": "UART Tx Transfer Counter"
+                },
+                "pRxBuffPtr": {
+                    "type": "uint8_t *",
+                    "comment": "Pointer to UART Rx transfer Buffer"
+                },
+                "RxXferSize": {
+                    "type": "uint16_t",
+                    "comment": "UART Rx Transfer size"
+                },
+                "RxXferCount": {
+                    "type": "uint16_t",
+                    "comment": "UART Rx Transfer Counter"
+                },
+                "ReceptionType": {
+                    "type": "HAL_UART_RxTypeTypeDef",
+                    "comment": "Type of ongoing reception"
+                },
+                "hdmatx": {
+                    "type": "DMA_HandleTypeDef *",
+                    "comment": "UART Tx DMA Handle parameters"
+                },
+                "hdmarx": {
+                    "type": "DMA_HandleTypeDef *",
+                    "comment": "UART Rx DMA Handle parameters"
+                },
+                "Lock": {
+                    "type": "HAL_LockTypeDef",
+                    "comment": "Locking object"
+                },
+                "gState": {
+                    "type": "HAL_UART_StateTypeDef",
+                    "comment": "UART state information related to global Handle management and also related to Tx operations."
+                },
+                "RxState": {
+                    "type": "HAL_UART_StateTypeDef",
+                    "comment": "UART state information related to Rx operations."
+                },
+                "ErrorCode": {
+                    "type": "uint32_t",
+                    "comment": "UART Error code"
+                }
+            }
+        }
+    }
+}
