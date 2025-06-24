@@ -91,8 +91,15 @@ class CreateCustomTypesScript(ghidra.app.script.GhidraScript):
                      voidPointerDataType = PointerDataType(self.dataTypeManager.getDataType(self.category_path, "void"))
                      struct_data_type.add(voidPointerDataType, struct_key, comment)
                 else:
-                    pointer_data_type = self.createPointer( data_type, point_to_data_type )                    
-                    struct_data_type.add(pointer_data_type, struct_key, comment)
+                    #pointer_data_type = self.createPointer( data_type, point_to_data_type )                    
+                    #struct_data_type.add(pointer_data_type, struct_key, comment)
+                    pointer_data_type = self.createPointer(data_type, point_to_data_type)
+                    if pointer_data_type is not None:
+                        struct_data_type.add(pointer_data_type, struct_key, comment)
+                    else:
+                        pass
+                        #print(f"Warning: Could not create pointer to type '{point_to_data_type}' for field '{struct_key}' in struct '{struct_name}'")
+
             else:
                 if( struct_value['type'] == 'uint32_t' ):
                     struct_data_type.add(UnsignedIntegerDataType(), struct_key, comment)                        
