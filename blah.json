@@ -1,5 +1,5 @@
 {
-    "structs": {
+    "struct": {
         "LTDC_ColorTypeDef": {
             "Blue": {
                 "type": "uint8_t",
@@ -1758,654 +1758,734 @@
             }
         }
     },
-    "enums": {
+    "enum": {
         "HAL_LTDC_StateTypeDef": {
             "HAL_LTDC_STATE_RESET": {
                 "value": "0x00",
-                "comment": "LTDC not yet initialized or disabled"
+                "description": "LTDC not yet initialized or disabled"
             },
             "HAL_LTDC_STATE_READY": {
                 "value": "0x01",
-                "comment": "LTDC initialized and ready for use"
+                "description": "LTDC initialized and ready for use"
             },
             "HAL_LTDC_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "LTDC internal process is ongoing"
+                "description": "LTDC internal process is ongoing"
             },
             "HAL_LTDC_STATE_TIMEOUT": {
                 "value": "0x03",
-                "comment": "LTDC Timeout state"
+                "description": "LTDC Timeout state"
             }
         },
         "HAL_LTDC_CallbackIDTypeDef": {
             "HAL_LTDC_MSPINIT_CB_ID": {
                 "value": "0x00",
-                "comment": "LTDC MspInit callback ID"
+                "description": "LTDC MspInit callback ID"
             },
             "HAL_LTDC_MSPDEINIT_CB_ID": {
                 "value": "0x01",
-                "comment": "LTDC MspDeInit callback ID"
+                "description": "LTDC MspDeInit callback ID"
             },
             "HAL_LTDC_LINE_EVENT_CB_ID": {
                 "value": "0x02",
-                "comment": "LTDC Line Event Callback ID"
+                "description": "LTDC Line Event Callback ID"
             },
             "HAL_LTDC_RELOAD_EVENT_CB_ID": {
                 "value": "0x03",
-                "comment": "LTDC Reload Callback ID"
+                "description": "LTDC Reload Callback ID"
             }
         },
         "HAL_DMA_MemoryTypeDef": {
             "MEMORY0": {
                 "value": "0x00",
-                "comment": "Memory 0"
+                "description": "Memory 0"
             }
         },
         "HAL_DMA_StateTypeDef": {
             "HAL_DMA_STATE_RESET": {
                 "value": "0x00",
-                "comment": "DMA not yet initialized or disabled"
+                "description": "DMA not yet initialized or disabled"
             },
             "HAL_DMA_STATE_READY": {
                 "value": "0x01",
-                "comment": "DMA initialized and ready for use"
+                "description": "DMA initialized and ready for use"
             },
             "HAL_DMA_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "DMA process is ongoing"
+                "description": "DMA process is ongoing"
             },
             "HAL_DMA_STATE_TIMEOUT": {
                 "value": "0x03",
-                "comment": "DMA timeout state"
+                "description": "DMA timeout state"
             },
             "HAL_DMA_STATE_ERROR": {
                 "value": "0x04",
-                "comment": "DMA error state"
+                "description": "DMA error state"
             },
             "HAL_DMA_STATE_ABORT": {
                 "value": "0x05",
-                "comment": "DMA Abort state"
+                "description": "DMA Abort state"
             }
         },
         "HAL_DMA_LevelCompleteTypeDef": {
             "HAL_DMA_FULL_TRANSFER": {
                 "value": "0x00",
-                "comment": "Full transfer"
+                "description": "Full transfer"
             }
         },
         "HAL_DMA_CallbackIDTypeDef": {
             "HAL_DMA_XFER_CPLT_CB_ID": {
                 "value": "0x00",
-                "comment": "Full transfer"
+                "description": "Full transfer"
             },
             "HAL_DMA_XFER_HALFCPLT_CB_ID": {
                 "value": "0x01",
-                "comment": "Half Transfer"
+                "description": "Half Transfer"
             },
             "HAL_DMA_XFER_M1CPLT_CB_ID": {
                 "value": "0x02",
-                "comment": "M1 Full Transfer"
+                "description": "M1 Full Transfer"
             },
             "HAL_DMA_XFER_M1HALFCPLT_CB_ID": {
                 "value": "0x03",
-                "comment": "M1 Half Transfer"
+                "description": "M1 Half Transfer"
             },
             "HAL_DMA_XFER_ERROR_CB_ID": {
                 "value": "0x04",
-                "comment": "Error"
+                "description": "Error"
             },
             "HAL_DMA_XFER_ABORT_CB_ID": {
                 "value": "0x05",
-                "comment": "Abort"
+                "description": "Abort"
             }
         },
         "HAL_CAN_StateTypeDef": {
             "HAL_CAN_STATE_RESET": {
                 "value": "0x00",
-                "comment": "CAN not yet initialized or disabled"
+                "description": "CAN not yet initialized or disabled"
             },
             "HAL_CAN_STATE_READY": {
                 "value": "0x01",
-                "comment": "CAN initialized and ready for use"
+                "description": "CAN initialized and ready for use"
             },
             "HAL_CAN_STATE_LISTENING": {
                 "value": "0x02",
-                "comment": "CAN receive process is ongoing"
+                "description": "CAN receive process is ongoing"
             },
             "HAL_CAN_STATE_SLEEP_PENDING": {
                 "value": "0x03",
-                "comment": "CAN sleep request is pending"
+                "description": "CAN sleep request is pending"
             },
             "HAL_CAN_STATE_SLEEP_ACTIVE": {
                 "value": "0x04",
-                "comment": "CAN sleep mode is active"
+                "description": "CAN sleep mode is active"
             }
         },
         "HAL_CAN_CallbackIDTypeDef": {
             "HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID": {
                 "value": "0x00",
-                "comment": "CAN Tx Mailbox 0 complete callback ID"
+                "description": "CAN Tx Mailbox 0 complete callback ID"
             },
             "HAL_CAN_TX_MAILBOX1_COMPLETE_CB_ID": {
                 "value": "0x01",
-                "comment": "CAN Tx Mailbox 1 complete callback ID"
+                "description": "CAN Tx Mailbox 1 complete callback ID"
             },
             "HAL_CAN_TX_MAILBOX2_COMPLETE_CB_ID": {
                 "value": "0x02",
-                "comment": "CAN Tx Mailbox 2 complete callback ID"
+                "description": "CAN Tx Mailbox 2 complete callback ID"
             },
             "HAL_CAN_TX_MAILBOX0_ABORT_CB_ID": {
                 "value": "0x03",
-                "comment": "CAN Tx Mailbox 0 abort callback ID"
+                "description": "CAN Tx Mailbox 0 abort callback ID"
             },
             "HAL_CAN_TX_MAILBOX1_ABORT_CB_ID": {
                 "value": "0x04",
-                "comment": "CAN Tx Mailbox 1 abort callback ID"
+                "description": "CAN Tx Mailbox 1 abort callback ID"
             },
             "HAL_CAN_TX_MAILBOX2_ABORT_CB_ID": {
                 "value": "0x05",
-                "comment": "CAN Tx Mailbox 2 abort callback ID"
+                "description": "CAN Tx Mailbox 2 abort callback ID"
             },
             "HAL_CAN_RX_FIFO0_MSG_PENDING_CB_ID": {
                 "value": "0x06",
-                "comment": "CAN Rx FIFO 0 message pending callback ID"
+                "description": "CAN Rx FIFO 0 message pending callback ID"
             },
             "HAL_CAN_RX_FIFO0_FULL_CB_ID": {
                 "value": "0x07",
-                "comment": "CAN Rx FIFO 0 full callback ID"
+                "description": "CAN Rx FIFO 0 full callback ID"
             },
             "HAL_CAN_RX_FIFO1_MSG_PENDING_CB_ID": {
                 "value": "0x08",
-                "comment": "CAN Rx FIFO 1 message pending callback ID"
+                "description": "CAN Rx FIFO 1 message pending callback ID"
             },
             "HAL_CAN_RX_FIFO1_FULL_CB_ID": {
                 "value": "0x09",
-                "comment": "CAN Rx FIFO 1 full callback ID"
+                "description": "CAN Rx FIFO 1 full callback ID"
             },
             "HAL_CAN_SLEEP_CB_ID": {
                 "value": "0x0A",
-                "comment": "CAN Sleep callback ID"
+                "description": "CAN Sleep callback ID"
             },
             "HAL_CAN_WAKEUP_FROM_RX_MSG_CB_ID": {
                 "value": "0x0B",
-                "comment": "CAN Wake Up from Rx msg callback ID"
+                "description": "CAN Wake Up from Rx msg callback ID"
             },
             "HAL_CAN_ERROR_CB_ID": {
                 "value": "0x0C",
-                "comment": "CAN Error callback ID"
+                "description": "CAN Error callback ID"
             },
             "HAL_CAN_MSPINIT_CB_ID": {
                 "value": "0x0D",
-                "comment": "CAN MspInit callback ID"
+                "description": "CAN MspInit callback ID"
             },
             "HAL_CAN_MSPDEINIT_CB_ID": {
                 "value": "0x0E",
-                "comment": "CAN MspDeInit callback ID"
+                "description": "CAN MspDeInit callback ID"
+            }
+        },
+        "HAL_TickFreqTypeDef": {
+            "HAL_TICK_FREQ_10HZ         = 100U": {
+                "value": null,
+                "description": null
+            },
+            "HAL_TICK_FREQ_100HZ        = 10U": {
+                "value": null,
+                "description": null
+            },
+            "HAL_TICK_FREQ_1KHZ         = 1U": {
+                "value": null,
+                "description": null
             }
         },
         "HAL_DMA2D_StateTypeDef": {
             "HAL_DMA2D_STATE_RESET": {
                 "value": "0x00",
-                "comment": "DMA2D not yet initialized or disabled"
+                "description": "DMA2D not yet initialized or disabled"
             },
             "HAL_DMA2D_STATE_READY": {
                 "value": "0x01",
-                "comment": "Peripheral Initialized and ready for use"
+                "description": "Peripheral Initialized and ready for use"
             },
             "HAL_DMA2D_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "An internal process is ongoing"
+                "description": "An internal process is ongoing"
             },
             "HAL_DMA2D_STATE_TIMEOUT": {
                 "value": "0x03",
-                "comment": "Timeout state"
+                "description": "Timeout state"
             },
             "HAL_DMA2D_STATE_ERROR": {
                 "value": "0x04",
-                "comment": "DMA2D state error"
+                "description": "DMA2D state error"
             }
         },
         "HAL_DMA2D_CallbackIDTypeDef": {
             "HAL_DMA2D_MSPINIT_CB_ID": {
                 "value": "0x00",
-                "comment": "DMA2D MspInit callback ID"
+                "description": "DMA2D MspInit callback ID"
             },
             "HAL_DMA2D_MSPDEINIT_CB_ID": {
                 "value": "0x01",
-                "comment": "DMA2D MspDeInit callback ID"
+                "description": "DMA2D MspDeInit callback ID"
             },
             "HAL_DMA2D_TRANSFERCOMPLETE_CB_ID": {
                 "value": "0x02",
-                "comment": "DMA2D transfer complete callback ID"
+                "description": "DMA2D transfer complete callback ID"
             },
             "HAL_DMA2D_TRANSFERERROR_CB_ID": {
                 "value": "0x03",
-                "comment": "DMA2D transfer error callback ID"
+                "description": "DMA2D transfer error callback ID"
             },
             "HAL_DMA2D_LINEEVENT_CB_ID": {
                 "value": "0x04",
-                "comment": "DMA2D line event callback ID"
+                "description": "DMA2D line event callback ID"
             },
             "HAL_DMA2D_CLUTLOADINGCPLT_CB_ID": {
                 "value": "0x05",
-                "comment": "DMA2D CLUT loading completion callback ID"
+                "description": "DMA2D CLUT loading completion callback ID"
+            }
+        },
+        "GPIO_PinState": {
+            "GPIO_PIN_RESET = 0": {
+                "value": null,
+                "description": null
             }
         },
         "HAL_CRC_StateTypeDef": {
             "HAL_CRC_STATE_RESET": {
                 "value": "0x00",
-                "comment": "CRC not yet initialized or disabled"
+                "description": "CRC not yet initialized or disabled"
             },
             "HAL_CRC_STATE_READY": {
                 "value": "0x01",
-                "comment": "CRC initialized and ready for use"
+                "description": "CRC initialized and ready for use"
             },
             "HAL_CRC_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "CRC internal process is ongoing"
+                "description": "CRC internal process is ongoing"
             },
             "HAL_CRC_STATE_TIMEOUT": {
                 "value": "0x03",
-                "comment": "CRC timeout state"
+                "description": "CRC timeout state"
             }
         },
         "HAL_DSI_StateTypeDef": {
             "HAL_DSI_STATE_RESET": {
                 "value": "0x00",
-                "comment": null
+                "description": null
             },
             "HAL_DSI_STATE_READY": {
                 "value": "0x01",
-                "comment": null
+                "description": null
             },
             "HAL_DSI_STATE_ERROR": {
                 "value": "0x02",
-                "comment": null
+                "description": null
             },
             "HAL_DSI_STATE_BUSY": {
                 "value": "0x03",
-                "comment": null
+                "description": null
+            },
+            "HAL_DSI_STATE_RESET   = 0x00U": {
+                "value": null,
+                "description": null
+            },
+            "HAL_DSI_STATE_READY   = 0x01U": {
+                "value": null,
+                "description": null
+            },
+            "HAL_DSI_STATE_ERROR   = 0x02U": {
+                "value": null,
+                "description": null
+            },
+            "HAL_DSI_STATE_BUSY    = 0x03U": {
+                "value": null,
+                "description": null
             }
         },
         "HAL_DSI_CallbackIDTypeDef": {
             "HAL_DSI_MSPINIT_CB_ID": {
                 "value": "0x00",
-                "comment": "DSI MspInit callback ID"
+                "description": "DSI MspInit callback ID"
             },
             "HAL_DSI_MSPDEINIT_CB_ID": {
                 "value": "0x01",
-                "comment": "DSI MspDeInit callback ID"
+                "description": "DSI MspDeInit callback ID"
             },
             "HAL_DSI_TEARING_EFFECT_CB_ID": {
                 "value": "0x02",
-                "comment": "DSI Tearing Effect Callback ID"
+                "description": "DSI Tearing Effect Callback ID"
             },
             "HAL_DSI_ENDOF_REFRESH_CB_ID": {
                 "value": "0x03",
-                "comment": "DSI End Of Refresh Callback ID"
+                "description": "DSI End Of Refresh Callback ID"
             }
         },
         "HAL_SDRAM_StateTypeDef": {
             "HAL_SDRAM_STATE_RESET": {
                 "value": "0x00",
-                "comment": "SDRAM not yet initialized or disabled"
+                "description": "SDRAM not yet initialized or disabled"
             },
             "HAL_SDRAM_STATE_READY": {
                 "value": "0x01",
-                "comment": "SDRAM initialized and ready for use"
+                "description": "SDRAM initialized and ready for use"
             },
             "HAL_SDRAM_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "SDRAM internal process is ongoing"
+                "description": "SDRAM internal process is ongoing"
             },
             "HAL_SDRAM_STATE_ERROR": {
                 "value": "0x03",
-                "comment": "SDRAM error state"
+                "description": "SDRAM error state"
             },
             "HAL_SDRAM_STATE_WRITE_PROTECTED": {
                 "value": "0x04",
-                "comment": "SDRAM device write protected"
+                "description": "SDRAM device write protected"
             }
         },
         "HAL_SDRAM_CallbackIDTypeDef": {
             "HAL_SDRAM_MSP_INIT_CB_ID": {
                 "value": "0x00",
-                "comment": "SDRAM MspInit Callback ID"
+                "description": "SDRAM MspInit Callback ID"
             },
             "HAL_SDRAM_MSP_DEINIT_CB_ID": {
                 "value": "0x01",
-                "comment": "SDRAM MspDeInit Callback ID"
+                "description": "SDRAM MspDeInit Callback ID"
             },
             "HAL_SDRAM_REFRESH_ERR_CB_ID": {
                 "value": "0x02",
-                "comment": "SDRAM Refresh Error Callback ID"
+                "description": "SDRAM Refresh Error Callback ID"
             },
             "HAL_SDRAM_DMA_XFER_CPLT_CB_ID": {
                 "value": "0x03",
-                "comment": "SDRAM DMA Xfer Complete Callback ID"
+                "description": "SDRAM DMA Xfer Complete Callback ID"
             }
         },
         "HAL_SPI_StateTypeDef": {
             "HAL_SPI_STATE_RESET": {
                 "value": "0x00",
-                "comment": "Peripheral not Initialized"
+                "description": "Peripheral not Initialized"
             },
             "HAL_SPI_STATE_READY": {
                 "value": "0x01",
-                "comment": "Peripheral Initialized and ready for use"
+                "description": "Peripheral Initialized and ready for use"
             },
             "HAL_SPI_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "an internal process is ongoing"
+                "description": "an internal process is ongoing"
             },
             "HAL_SPI_STATE_BUSY_TX": {
                 "value": "0x03",
-                "comment": "Data Transmission process is ongoing"
+                "description": "Data Transmission process is ongoing"
             },
             "HAL_SPI_STATE_BUSY_RX": {
                 "value": "0x04",
-                "comment": "Data Reception process is ongoing"
+                "description": "Data Reception process is ongoing"
             },
             "HAL_SPI_STATE_BUSY_TX_RX": {
                 "value": "0x05",
-                "comment": "Data Transmission and Reception process is ongoing"
+                "description": "Data Transmission and Reception process is ongoing"
             },
             "HAL_SPI_STATE_ERROR": {
                 "value": "0x06",
-                "comment": "SPI error state"
+                "description": "SPI error state"
             }
         },
         "HAL_SPI_CallbackIDTypeDef": {
             "HAL_SPI_TX_COMPLETE_CB_ID": {
                 "value": "0x00",
-                "comment": "SPI Tx Completed callback ID"
+                "description": "SPI Tx Completed callback ID"
             },
             "HAL_SPI_RX_COMPLETE_CB_ID": {
                 "value": "0x01",
-                "comment": "SPI Rx Completed callback ID"
+                "description": "SPI Rx Completed callback ID"
             },
             "HAL_SPI_TX_RX_COMPLETE_CB_ID": {
                 "value": "0x02",
-                "comment": "SPI TxRx Completed callback ID"
+                "description": "SPI TxRx Completed callback ID"
             },
             "HAL_SPI_TX_HALF_COMPLETE_CB_ID": {
                 "value": "0x03",
-                "comment": "SPI Tx Half Completed callback ID"
+                "description": "SPI Tx Half Completed callback ID"
             },
             "HAL_SPI_RX_HALF_COMPLETE_CB_ID": {
                 "value": "0x04",
-                "comment": "SPI Rx Half Completed callback ID"
+                "description": "SPI Rx Half Completed callback ID"
             },
             "HAL_SPI_TX_RX_HALF_COMPLETE_CB_ID": {
                 "value": "0x05",
-                "comment": "SPI TxRx Half Completed callback ID"
+                "description": "SPI TxRx Half Completed callback ID"
             },
             "HAL_SPI_ERROR_CB_ID": {
                 "value": "0x06",
-                "comment": "SPI Error callback ID"
+                "description": "SPI Error callback ID"
             },
             "HAL_SPI_ABORT_CB_ID": {
                 "value": "0x07",
-                "comment": "SPI Abort callback ID"
+                "description": "SPI Abort callback ID"
             },
             "HAL_SPI_MSPINIT_CB_ID": {
                 "value": "0x08",
-                "comment": "SPI Msp Init callback ID"
+                "description": "SPI Msp Init callback ID"
             }
         },
         "HAL_TIM_StateTypeDef": {
             "HAL_TIM_STATE_RESET": {
                 "value": "0x00",
-                "comment": "Peripheral not yet initialized or disabled"
+                "description": "Peripheral not yet initialized or disabled"
             },
             "HAL_TIM_STATE_READY": {
                 "value": "0x01",
-                "comment": "Peripheral Initialized and ready for use"
+                "description": "Peripheral Initialized and ready for use"
             },
             "HAL_TIM_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "An internal process is ongoing"
+                "description": "An internal process is ongoing"
             },
             "HAL_TIM_STATE_TIMEOUT": {
                 "value": "0x03",
-                "comment": "Timeout state"
+                "description": "Timeout state"
             }
         },
         "HAL_TIM_ChannelStateTypeDef": {
             "HAL_TIM_CHANNEL_STATE_RESET": {
                 "value": "0x00",
-                "comment": "TIM Channel initial state"
+                "description": "TIM Channel initial state"
             },
             "HAL_TIM_CHANNEL_STATE_READY": {
                 "value": "0x01",
-                "comment": "TIM Channel ready for use"
+                "description": "TIM Channel ready for use"
             },
             "HAL_TIM_CHANNEL_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "An internal process is ongoing on the TIM channel"
+                "description": "An internal process is ongoing on the TIM channel"
             }
         },
         "HAL_TIM_DMABurstStateTypeDef": {
             "HAL_DMA_BURST_STATE_RESET": {
                 "value": "0x00",
-                "comment": "DMA Burst initial state"
+                "description": "DMA Burst initial state"
             },
             "HAL_DMA_BURST_STATE_READY": {
                 "value": "0x01",
-                "comment": "DMA Burst ready for use"
+                "description": "DMA Burst ready for use"
             },
             "HAL_DMA_BURST_STATE_BUSY": {
                 "value": "0x02",
-                "comment": "Ongoing DMA Burst"
+                "description": "Ongoing DMA Burst"
             }
         },
         "HAL_TIM_ActiveChannel": {
             "HAL_TIM_ACTIVE_CHANNEL_1": {
                 "value": "0x01",
-                "comment": "The active channel is 1"
+                "description": "The active channel is 1"
             },
             "HAL_TIM_ACTIVE_CHANNEL_2": {
                 "value": "0x02",
-                "comment": "The active channel is 2"
+                "description": "The active channel is 2"
             },
             "HAL_TIM_ACTIVE_CHANNEL_3": {
                 "value": "0x04",
-                "comment": "The active channel is 3"
+                "description": "The active channel is 3"
             },
             "HAL_TIM_ACTIVE_CHANNEL_4": {
                 "value": "0x08",
-                "comment": "The active channel is 4"
+                "description": "The active channel is 4"
+            }
+        },
+        "HAL_TIM_CallbackIDTypeDef": {
+            "HAL_TIM_BASE_MSPINIT_CB_ID              = 0x00U   /*!< TIM Base MspInit Callback ID                              */": {
+                "value": null,
+                "description": null
+            },
+            "": {
+                "value": null,
+                "description": null
             }
         },
         "HAL_UART_StateTypeDef": {
             "HAL_UART_STATE_RESET": {
                 "value": "0x00",
-                "comment": "Peripheral is not yet Initialized Value is allowed for gState and RxState"
+                "description": "Peripheral is not yet Initialized Value is allowed for gState and RxState"
             },
             "HAL_UART_STATE_READY": {
                 "value": "0x20",
-                "comment": "Peripheral Initialized and ready for use Value is allowed for gState and RxState"
+                "description": "Peripheral Initialized and ready for use Value is allowed for gState and RxState"
             },
             "HAL_UART_STATE_BUSY": {
                 "value": "0x24",
-                "comment": "an internal process is ongoing Value is allowed for gState only"
+                "description": "an internal process is ongoing Value is allowed for gState only"
             },
             "HAL_UART_STATE_BUSY_TX": {
                 "value": "0x21",
-                "comment": "Data Transmission process is ongoing Value is allowed for gState only"
+                "description": "Data Transmission process is ongoing Value is allowed for gState only"
             },
             "HAL_UART_STATE_BUSY_RX": {
                 "value": "0x22",
-                "comment": "Data Reception process is ongoing Value is allowed for RxState only"
+                "description": "Data Reception process is ongoing Value is allowed for RxState only"
             },
             "HAL_UART_STATE_BUSY_TX_RX": {
                 "value": "0x23",
-                "comment": "Data Transmission and Reception process is ongoing Not to be used for neither gState nor RxState. Value is result of combination (Or) between gState and RxState values"
+                "description": "Data Transmission and Reception process is ongoing Not to be used for neither gState nor RxState. Value is result of combination (Or) between gState and RxState values"
             },
             "HAL_UART_STATE_TIMEOUT": {
                 "value": "0xA0",
-                "comment": "Timeout state Value is allowed for gState only"
+                "description": "Timeout state Value is allowed for gState only"
             }
         },
         "HAL_UART_CallbackIDTypeDef": {
             "HAL_UART_TX_HALFCOMPLETE_CB_ID": {
                 "value": "0x00",
-                "comment": "UART Tx Half Complete Callback ID"
+                "description": "UART Tx Half Complete Callback ID"
             },
             "HAL_UART_TX_COMPLETE_CB_ID": {
                 "value": "0x01",
-                "comment": "UART Tx Complete Callback ID"
+                "description": "UART Tx Complete Callback ID"
             },
             "HAL_UART_RX_HALFCOMPLETE_CB_ID": {
                 "value": "0x02",
-                "comment": "UART Rx Half Complete Callback ID"
+                "description": "UART Rx Half Complete Callback ID"
             },
             "HAL_UART_RX_COMPLETE_CB_ID": {
                 "value": "0x03",
-                "comment": "UART Rx Complete Callback ID"
+                "description": "UART Rx Complete Callback ID"
             },
             "HAL_UART_ERROR_CB_ID": {
                 "value": "0x04",
-                "comment": "UART Error Callback ID"
+                "description": "UART Error Callback ID"
             },
             "HAL_UART_ABORT_COMPLETE_CB_ID": {
                 "value": "0x05",
-                "comment": "UART Abort Complete Callback ID"
+                "description": "UART Abort Complete Callback ID"
             },
             "HAL_UART_ABORT_TRANSMIT_COMPLETE_CB_ID": {
                 "value": "0x06",
-                "comment": "UART Abort Transmit Complete Callback ID"
+                "description": "UART Abort Transmit Complete Callback ID"
             },
             "HAL_UART_ABORT_RECEIVE_COMPLETE_CB_ID": {
                 "value": "0x07",
-                "comment": "UART Abort Receive Complete Callback ID"
+                "description": "UART Abort Receive Complete Callback ID"
             },
             "HAL_UART_WAKEUP_CB_ID": {
                 "value": "0x08",
-                "comment": "UART Wakeup Callback ID"
+                "description": "UART Wakeup Callback ID"
             },
             "HAL_UART_MSPINIT_CB_ID": {
                 "value": "0x0B",
-                "comment": "UART MspInit callback ID"
+                "description": "UART MspInit callback ID"
+            }
+        },
+        "FLASH_ProcedureTypeDef": {
+            "FLASH_PROC_NONE = 0U": {
+                "value": null,
+                "description": null
+            },
+            "FLASH_PROC_SECTERASE": {
+                "value": null,
+                "description": null
+            },
+            "FLASH_PROC_MASSERASE": {
+                "value": null,
+                "description": null
             }
         },
         "HAL_I2C_StateTypeDef": {
             "HAL_I2C_STATE_RESET": {
                 "value": "0x00",
-                "comment": "Peripheral is not yet Initialized"
+                "description": "Peripheral is not yet Initialized"
             },
             "HAL_I2C_STATE_READY": {
                 "value": "0x20",
-                "comment": "Peripheral Initialized and ready for use"
+                "description": "Peripheral Initialized and ready for use"
             },
             "HAL_I2C_STATE_BUSY": {
                 "value": "0x24",
-                "comment": "An internal process is ongoing"
+                "description": "An internal process is ongoing"
             },
             "HAL_I2C_STATE_BUSY_TX": {
                 "value": "0x21",
-                "comment": "Data Transmission process is ongoing"
+                "description": "Data Transmission process is ongoing"
             },
             "HAL_I2C_STATE_BUSY_RX": {
                 "value": "0x22",
-                "comment": "Data Reception process is ongoing"
+                "description": "Data Reception process is ongoing"
             },
             "HAL_I2C_STATE_LISTEN": {
                 "value": "0x28",
-                "comment": "Address Listen Mode is ongoing"
+                "description": "Address Listen Mode is ongoing"
             },
             "HAL_I2C_STATE_BUSY_TX_LISTEN": {
                 "value": "0x29",
-                "comment": "Address Listen Mode and Data Transmission process is ongoing"
+                "description": "Address Listen Mode and Data Transmission process is ongoing"
             },
             "HAL_I2C_STATE_BUSY_RX_LISTEN": {
                 "value": "0x2A",
-                "comment": "Address Listen Mode and Data Reception process is ongoing"
+                "description": "Address Listen Mode and Data Reception process is ongoing"
             },
             "HAL_I2C_STATE_ABORT": {
                 "value": "0x60",
-                "comment": "Abort user request ongoing"
+                "description": "Abort user request ongoing"
             },
             "HAL_I2C_STATE_TIMEOUT": {
                 "value": "0xA0",
-                "comment": "Timeout state"
+                "description": "Timeout state"
             }
         },
         "HAL_I2C_ModeTypeDef": {
             "HAL_I2C_MODE_NONE": {
                 "value": "0x00",
-                "comment": "No I2C communication on going"
+                "description": "No I2C communication on going"
             },
             "HAL_I2C_MODE_MASTER": {
                 "value": "0x10",
-                "comment": "I2C communication is in Master Mode"
+                "description": "I2C communication is in Master Mode"
             },
             "HAL_I2C_MODE_SLAVE": {
                 "value": "0x20",
-                "comment": "I2C communication is in Slave Mode"
+                "description": "I2C communication is in Slave Mode"
             }
         },
         "HAL_I2C_CallbackIDTypeDef": {
             "HAL_I2C_MASTER_TX_COMPLETE_CB_ID": {
                 "value": "0x00",
-                "comment": "I2C Master Tx Transfer completed callback ID"
+                "description": "I2C Master Tx Transfer completed callback ID"
             },
             "HAL_I2C_MASTER_RX_COMPLETE_CB_ID": {
                 "value": "0x01",
-                "comment": "I2C Master Rx Transfer completed callback ID"
+                "description": "I2C Master Rx Transfer completed callback ID"
             },
             "HAL_I2C_SLAVE_TX_COMPLETE_CB_ID": {
                 "value": "0x02",
-                "comment": "I2C Slave Tx Transfer completed callback ID"
+                "description": "I2C Slave Tx Transfer completed callback ID"
             },
             "HAL_I2C_SLAVE_RX_COMPLETE_CB_ID": {
                 "value": "0x03",
-                "comment": "I2C Slave Rx Transfer completed callback ID"
+                "description": "I2C Slave Rx Transfer completed callback ID"
             },
             "HAL_I2C_LISTEN_COMPLETE_CB_ID": {
                 "value": "0x04",
-                "comment": "I2C Listen Complete callback ID"
+                "description": "I2C Listen Complete callback ID"
             },
             "HAL_I2C_MEM_TX_COMPLETE_CB_ID": {
                 "value": "0x05",
-                "comment": "I2C Memory Tx Transfer callback ID"
+                "description": "I2C Memory Tx Transfer callback ID"
             },
             "HAL_I2C_MEM_RX_COMPLETE_CB_ID": {
                 "value": "0x06",
-                "comment": "I2C Memory Rx Transfer completed callback ID"
+                "description": "I2C Memory Rx Transfer completed callback ID"
             },
             "HAL_I2C_ERROR_CB_ID": {
                 "value": "0x07",
-                "comment": "I2C Error callback ID"
+                "description": "I2C Error callback ID"
             },
             "HAL_I2C_ABORT_CB_ID": {
                 "value": "0x08",
-                "comment": "I2C Abort callback ID"
+                "description": "I2C Abort callback ID"
             },
             "HAL_I2C_MSPINIT_CB_ID": {
                 "value": "0x09",
-                "comment": "I2C Msp Init callback ID"
+                "description": "I2C Msp Init callback ID"
             }
         },
+        "EXTI_CallbackIDTypeDef": null,
         "HAL_StatusTypeDef": {
             "HAL_OK": {
                 "value": "0x00",
-                "comment": null
+                "description": null
             },
             "HAL_ERROR": {
                 "value": "0x01",
-                "comment": null
+                "description": null
             },
             "HAL_BUSY": {
                 "value": "0x02",
-                "comment": null
+                "description": null
+            },
+            "HAL_OK       = 0x00U": {
+                "value": null,
+                "description": null
+            },
+            "HAL_ERROR    = 0x01U": {
+                "value": null,
+                "description": null
+            },
+            "HAL_BUSY     = 0x02U": {
+                "value": null,
+                "description": null
             }
         },
         "HAL_LockTypeDef": {
             "HAL_UNLOCKED": {
                 "value": "0x00",
-                "comment": null
+                "description": null
+            },
+            "HAL_UNLOCKED = 0x00U": {
+                "value": null,
+                "description": null
             }
         }
+    },
+    "uint32_t": {
+        "HAL_UART_RxTypeTypeDef": null
     }
 }

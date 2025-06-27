@@ -40,7 +40,12 @@ class CreateCustomTypesScript(ghidra.app.script.GhidraScript):
         
         # Add enumeration values
         for enum_key, enum_value in enum_data.items():
-            enum_data_type.add(enum_key, enum_value['value'], enum_value['comment'])
+            try: 
+                value = int(enum_value['value'], 0)
+                enum_data_type.add(enum_key, value, enum_value['comment'])
+            except:
+                print("Error adding enum value " + enum_key + " with value " + value + " to enum " + enum_name + ".")
+                sys.exit() 
         
         # Add the enum to the data type manager
         self.dataTypeManager.addDataType(enum_data_type, DataTypeConflictHandler.DEFAULT_HANDLER) 
@@ -137,12 +142,19 @@ class CreateCustomTypesScript(ghidra.app.script.GhidraScript):
             json_data = file.read()
         
         self.dataToCreate = json.loads(json_data, object_pairs_hook=OrderedDict)
+   
+        for enum_name, enum_data in self.dataToCreate.get('enums', {}).items():
+            if enum_data is None:
+                print("Skipping enum " + enum_name + " - definition is null.")
+                continue
+            self.createEnum(enum_name, enum_data)              
 
-        for enum in self.dataToCreate['enums']:
-            self.createEnum( enum, self.dataToCreate['enums'][enum] )        
-        
-        for struct in self.dataToCreate['structs']:
-            self.createStruct( struct, self.dataToCreate['structs'][struct] )    
+        for struct_name, struct_def in self.dataToCreate.get('structs', {}).items():
+            if not isinstance(struct_def, dict):
+                print("Skipping struct " + struct_name + " - invalid definition.")
+                continue
+            self.createStruct(struct_name, {'struct': struct_def})
+
         
         print("Created Data Types: ")
         print("\tEnums: ")
