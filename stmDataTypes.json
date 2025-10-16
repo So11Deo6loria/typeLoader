@@ -1275,6 +1275,10 @@
             }
         },
         "UART_HandleTypeDef": {
+            "Instance": {
+                "type": "USART_TypeDef *",
+                "comment": "Pointer to UART Handle"
+            },
             "Init": {
                 "type": "UART_InitTypeDef",
                 "comment": "UART communication parameters"
