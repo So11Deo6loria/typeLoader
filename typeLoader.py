@@ -1,169 +1,159 @@
 # Import Custom Types into Ghidra for More Efficient Bare Metal RE
-#@author So11Deo6loria So11Deo6loria@proton.me
+#@author So11Deo6loria
 #@category Bare Metal
 
-# Miscellaneous Imports
 import json
 import os
 import re
 from collections import OrderedDict
 
-# Import the necessary Ghidra modules
 import ghidra.app.script.GhidraScript
-from ghidra.program.model.data import CategoryPath, DataTypeConflictHandler, EnumDataType, StructureDataType, ByteDataType, UnsignedIntegerDataType, ArrayDataType, PointerDataType
+from ghidra.program.model.data import (
+    CategoryPath,
+    DataTypeConflictHandler,
+    EnumDataType,
+    StructureDataType,
+    ByteDataType,
+    UnsignedIntegerDataType,
+    ArrayDataType,
+    PointerDataType
+)
 from ghidra.util.task import TaskMonitor
 
 class CreateCustomTypesScript(ghidra.app.script.GhidraScript):
-    def __init__( self ):
+
+    def __init__(self):
         self.category_path = CategoryPath("/CustomTypes")
-        
-        # Get the current program's dataTypeManager
         self.dataTypeManager = currentProgram.getDataTypeManager()
         self.createdEnums = []
         self.createdStructs = []
         self.customTypes = {}
         self.dataToCreate = {}
 
-    def convertType( self, type ):
-        typeConversion = {
-            'uint8_t': ByteDataType()
-        }
+    def createEnum(self, enum_name, enum_data):
+        enum_data_type = EnumDataType(self.category_path, enum_name, 4)
 
-        if( type in typeConversion ):
-            return typeConversion[type] 
-        else: 
-            return type 
-
-    def createEnum( self, enum_name, enum_data ):
-        # Create an EnumDataType
-        enum_data_type = EnumDataType(self.category_path, enum_name, 1)  # 1-byte size
-        
-        # Add enumeration values
         for enum_key, enum_value in enum_data.items():
-            try: 
-                value = int(enum_value['value'], 0)
-                enum_data_type.add(enum_key, value, enum_value['comment'])
-            except:
-                print("Error adding enum value " + enum_key + " with value " + value + " to enum " + enum_name + ".")
-                sys.exit() 
-        
-        # Add the enum to the data type manager
-        self.dataTypeManager.addDataType(enum_data_type, DataTypeConflictHandler.DEFAULT_HANDLER) 
-        self.createdEnums.append(enum_name)
+            try:
+                if not isinstance(enum_value, dict):
+                    print("Skipping malformed enum " + enum_key + " in " + enum_name)
+                    continue
 
-    def createPointer(self, pointer_name, pointed_to_data_type_name):
-        # Check if the custom data type exists project-wide
+                if 'value' not in enum_value:
+                    print("Skipping enum " + enum_key + " in " + enum_name + " (no value).")
+                    continue
+
+                value = int(enum_value['value'])
+                comment = enum_value.get('comment', '')
+                if comment is None:
+                    comment = ""
+
+                enum_data_type.add(enum_key, value, comment)
+            except Exception as e:
+                print("Error adding enum " + enum_key + " in " + enum_name + ": " + str(e))
+                continue
+
+        try:
+            self.dataTypeManager.addDataType(enum_data_type, DataTypeConflictHandler.REPLACE_HANDLER)
+            self.createdEnums.append(enum_name)
+        except Exception as e:
+            print("Error registering enum " + enum_name + ": " + str(e))
+
+    def createPointer(self, pointed_to_data_type_name):
         pointed_to_data_type = None
         all_data_types = self.dataTypeManager.getAllDataTypes()
-
         for data_type in all_data_types:
             if data_type.getName() == pointed_to_data_type_name:
                 pointed_to_data_type = data_type
                 break
 
         if pointed_to_data_type is None:
-            print("Custom data type not found.")
+            return PointerDataType(ByteDataType())  # fallback to byte pointer
+
+        return PointerDataType(pointed_to_data_type)
+
+    def createStruct(self, struct_name, struct_data):
+        if 'struct' not in struct_data:
+            print("Invalid struct definition for " + struct_name)
             return
 
-        # Create a pointer data type using the existing custom data type as the pointed-to type
-        pointer_data_type = PointerDataType(pointed_to_data_type)
-        return pointer_data_type
-
-    def createStruct( self, struct_name, struct_data ):
-        # Create a StructureDataType
+        struct_fields = struct_data['struct']
         struct_data_type = StructureDataType(self.category_path, struct_name, 0)
 
-        # Add fields to the structure
-        for struct_key, struct_value in struct_data['struct'].items():
-            data_type = struct_value['type']
-            comment = struct_value['comment']
-            
-            # Arrays - TODO: Handle non-uint32_t arrays. 
-            pattern = r'(\w+)\s*\[(\d+)\]'
-            match = re.match(pattern, data_type)   
-            if match:
-                data_type = match.group(1)
-                array_size = int(match.group(2))
-                
-                custom_data_type = ArrayDataType(UnsignedIntegerDataType(), array_size, 4)
-                struct_data_type.add(custom_data_type, struct_key, comment)
-            # Pointers
-            elif( '*' in data_type ): 
-                pattern = r'(.*?) \*'
-                match = re.match(pattern, data_type)                
-                point_to_data_type = match.group(1)
-                if( point_to_data_type == 'void' ):
-                     voidPointerDataType = PointerDataType(self.dataTypeManager.getDataType(self.category_path, "void"))
-                     struct_data_type.add(voidPointerDataType, struct_key, comment)
-                else:
-                    #pointer_data_type = self.createPointer( data_type, point_to_data_type )                    
-                    #struct_data_type.add(pointer_data_type, struct_key, comment)
-                    pointer_data_type = self.createPointer(data_type, point_to_data_type)
-                    if pointer_data_type is not None:
-                        struct_data_type.add(pointer_data_type, struct_key, comment)
-                    else:
-                        pass
-                        #print(f"Warning: Could not create pointer to type '{point_to_data_type}' for field '{struct_key}' in struct '{struct_name}'")
+        for field_name, field_info in struct_fields.items():
+            try:
+                if not isinstance(field_info, dict):
+                    print("Skipping field " + field_name + " in " + struct_name + " (not a dict).")
+                    continue
 
-            else:
-                if( struct_value['type'] == 'uint32_t' ):
-                    struct_data_type.add(UnsignedIntegerDataType(), struct_key, comment)                        
+                data_type_str = field_info.get('type', 'uint32_t')
+                comment = field_info.get('comment', '') or ""
+
+                # Array handling: uint32_t[2]
+                array_match = re.match(r'(\w+)\[(\d+)\]', data_type_str)
+                if array_match:
+                    base_type = array_match.group(1)
+                    count = int(array_match.group(2))
+                    struct_data_type.add(ArrayDataType(UnsignedIntegerDataType(), count, 4), field_name, comment)
+                    continue
+
+                # Pointer handling: void * or Type *
+                if '*' in data_type_str:
+                    base_type = data_type_str.replace('*', '').strip()
+                    struct_data_type.add(self.createPointer(base_type), field_name, comment)
+                    continue
+
+                # Simple base types
+                if data_type_str.startswith('uint') or data_type_str == 'int':
+                    struct_data_type.add(UnsignedIntegerDataType(), field_name, comment)
+                elif data_type_str in self.dataToCreate.get('enums', {}):
+                    self.createEnum(data_type_str, self.dataToCreate['enums'][data_type_str])
+                    struct_data_type.add(self.dataTypeManager.getDataType(self.category_path, data_type_str), field_name, comment)
+                elif data_type_str in self.dataToCreate.get('structs', {}):
+                    self.createStruct(data_type_str, self.dataToCreate['structs'][data_type_str])
+                    struct_data_type.add(self.dataTypeManager.getDataType(self.category_path, data_type_str), field_name, comment)
                 else:
-                    if( data_type in self.customTypes ):                    
-                        struct_data_type.add(self.customTypes[data_type], struct_key, comment)
-                    else:
-                        # If there is an unknown type make a new one
-                        for typeCategory in self.dataToCreate:
-                            if( data_type in self.dataToCreate[typeCategory] ):
-                                if( typeCategory == 'enums' ):
-                                    self.createEnum( data_type, self.dataToCreate[typeCategory][data_type] )   
-                                elif( typeCategory == 'structs' ):
-                                    self.createStruct( data_type, self.dataToCreate[typeCategory][data_type] )   
-        
-        # Add the structure to the data type manager
-        self.dataTypeManager.addDataType(struct_data_type, DataTypeConflictHandler.DEFAULT_HANDLER)
-        self.createdStructs.append(struct_name)
-        self.customTypes[struct_name] = struct_data_type
+                    struct_data_type.add(UnsignedIntegerDataType(), field_name, comment)
+
+            except Exception as e:
+                print("Error adding field " + field_name + " in struct " + struct_name + ": " + str(e))
+                continue
+
+        try:
+            self.dataTypeManager.addDataType(struct_data_type, DataTypeConflictHandler.REPLACE_HANDLER)
+            self.createdStructs.append(struct_name)
+            self.customTypes[struct_name] = struct_data_type
+        except Exception as e:
+            print("Error registering struct " + struct_name + ": " + str(e))
 
     def run(self):
-        # Get the directory where the script is located
         script_directory = os.path.dirname(os.path.realpath(__file__))
+        json_file_path = os.path.join(script_directory, "stmDataTypes.json")
 
-        # Specify the full path to the JSON file
-        json_file_path = os.path.join(script_directory, 'stmDataTypes.json')
-
-        # Check if the JSON file exists before opening it
         if not os.path.exists(json_file_path):
-            print("JSON file " + json_file_path + " not found.")
+            print("JSON file not found at " + json_file_path)
             return
 
-        # Open the JSON file
-        with open(json_file_path, 'r') as file:
-            json_data = file.read()
-        
-        self.dataToCreate = json.loads(json_data, object_pairs_hook=OrderedDict)
-   
-        for enum_name, enum_data in self.dataToCreate.get('enums', {}).items():
-            if enum_data is None:
-                print("Skipping enum " + enum_name + " - definition is null.")
-                continue
-            self.createEnum(enum_name, enum_data)              
+        with open(json_file_path, "r") as file:
+            self.dataToCreate = json.loads(file.read(), object_pairs_hook=OrderedDict)
 
-        for struct_name, struct_def in self.dataToCreate.get('structs', {}).items():
-            if not isinstance(struct_def, dict):
-                print("Skipping struct " + struct_name + " - invalid definition.")
-                continue
-            self.createStruct(struct_name, {'struct': struct_def})
+        # Create enums
+        for enum_name, enum_def in self.dataToCreate.get("enums", {}).items():
+            self.createEnum(enum_name, enum_def)
 
-        
-        print("Created Data Types: ")
-        print("\tEnums: ")
-        for enum in self.createdEnums: 
-            print("\t\t" + enum)
-        print("\tStructs: ")
-        for struct in self.createdStructs: 
-            print("\t\t" + struct)            
+        # Create structs
+        for struct_name, struct_def in self.dataToCreate.get("structs", {}).items():
+            self.createStruct(struct_name, struct_def)
 
-# Create an instance of the script and run it
+        print("Created Data Types:")
+        print("\tEnums:")
+        for e in self.createdEnums:
+            print("\t\t" + e)
+        print("\tStructs:")
+        for s in self.createdStructs:
+            print("\t\t" + s)
+
+
+# Run script
 createScript = CreateCustomTypesScript()
 createScript.run()
