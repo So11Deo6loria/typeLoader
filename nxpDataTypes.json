@@ -1,0 +1,298 @@
+{
+    "enums": {
+        "status_t": {
+            "kStatus_Success": {"value": 0, "comment": "Generic success (kStatusGroup_Generic*100+0)"},
+            "kStatus_Fail": {"value": 1, "comment": "Generic failure"},
+            "kStatus_ReadOnly": {"value": 2, "comment": "Read-only access violation"},
+            "kStatus_OutOfRange": {"value": 3, "comment": "Out of range"},
+            "kStatus_InvalidArgument": {"value": 4, "comment": "Invalid argument"},
+            "kStatus_Timeout": {"value": 5, "comment": "Operation timed out"},
+            "kStatus_NoTransferInProgress": {"value": 6, "comment": "No transfer in progress"}
+        },
+        "_lpuart_parity_mode": {
+            "kLPUART_ParityDisabled": {"value": 0, "comment": "Parity disabled"},
+            "kLPUART_ParityEven": {"value": 2, "comment": "Parity enabled, even (PE=1, PT=0)"},
+            "kLPUART_ParityOdd": {"value": 3, "comment": "Parity enabled, odd (PE=1, PT=1)"}
+        },
+        "_lpuart_stop_bit_count": {
+            "kLPUART_OneStopBit": {"value": 0, "comment": "One stop bit"},
+            "kLPUART_TwoStopBit": {"value": 1, "comment": "Two stop bits"}
+        },
+        "_lpuart_data_bits": {
+            "kLPUART_EightDataBits": {"value": 0, "comment": "Eight data bits"},
+            "kLPUART_SevenDataBits": {"value": 1, "comment": "Seven data bits"}
+        }
+    },
+    "structs": {
+        "GPIO_Type": {
+            "description": "Kinetis General Purpose Input/Output (rfast GPIO / FGPIO)",
+            "struct": {
+                "PDOR": {"type": "uint32_t", "comment": "0x00 Port Data Output Register"},
+                "PSOR": {"type": "uint32_t", "comment": "0x04 Port Set Output Register"},
+                "PCOR": {"type": "uint32_t", "comment": "0x08 Port Clear Output Register"},
+                "PTOR": {"type": "uint32_t", "comment": "0x0C Port Toggle Output Register"},
+                "PDIR": {"type": "uint32_t", "comment": "0x10 Port Data Input Register"},
+                "PDDR": {"type": "uint32_t", "comment": "0x14 Port Data Direction Register"}
+            }
+        },
+        "PORT_Type": {
+            "description": "Kinetis Pin Control and Interrupts (PORT muxing)",
+            "struct": {
+                "PCR": {"type": "uint32_t[32]", "comment": "0x00 Pin Control Register array (one per pin)"},
+                "GPCLR": {"type": "uint32_t", "comment": "0x80 Global Pin Control Low Register"},
+                "GPCHR": {"type": "uint32_t", "comment": "0x84 Global Pin Control High Register"},
+                "RESERVED0": {"type": "uint8_t[24]", "comment": "0x88 reserved"},
+                "ISFR": {"type": "uint32_t", "comment": "0xA0 Interrupt Status Flag Register"}
+            }
+        },
+        "UART_Type": {
+            "description": "Kinetis legacy UART (8-bit register interface)",
+            "struct": {
+                "BDH": {"type": "uint8_t", "comment": "0x00 Baud Rate Register High"},
+                "BDL": {"type": "uint8_t", "comment": "0x01 Baud Rate Register Low"},
+                "C1": {"type": "uint8_t", "comment": "0x02 Control Register 1"},
+                "C2": {"type": "uint8_t", "comment": "0x03 Control Register 2"},
+                "S1": {"type": "uint8_t", "comment": "0x04 Status Register 1"},
+                "S2": {"type": "uint8_t", "comment": "0x05 Status Register 2"},
+                "C3": {"type": "uint8_t", "comment": "0x06 Control Register 3"},
+                "D": {"type": "uint8_t", "comment": "0x07 Data Register"},
+                "MA1": {"type": "uint8_t", "comment": "0x08 Match Address Register 1"},
+                "MA2": {"type": "uint8_t", "comment": "0x09 Match Address Register 2"},
+                "C4": {"type": "uint8_t", "comment": "0x0A Control Register 4"},
+                "C5": {"type": "uint8_t", "comment": "0x0B Control Register 5"},
+                "ED": {"type": "uint8_t", "comment": "0x0C Extended Data Register"},
+                "MODEM": {"type": "uint8_t", "comment": "0x0D Modem Register"},
+                "IR": {"type": "uint8_t", "comment": "0x0E Infrared Register"},
+                "RESERVED0": {"type": "uint8_t[1]", "comment": "0x0F reserved"},
+                "PFIFO": {"type": "uint8_t", "comment": "0x10 FIFO Parameters"},
+                "CFIFO": {"type": "uint8_t", "comment": "0x11 FIFO Control Register"},
+                "SFIFO": {"type": "uint8_t", "comment": "0x12 FIFO Status Register"},
+                "TWFIFO": {"type": "uint8_t", "comment": "0x13 FIFO Transmit Watermark"},
+                "TCFIFO": {"type": "uint8_t", "comment": "0x14 FIFO Transmit Count"},
+                "RWFIFO": {"type": "uint8_t", "comment": "0x15 FIFO Receive Watermark"},
+                "RCFIFO": {"type": "uint8_t", "comment": "0x16 FIFO Receive Count"}
+            }
+        },
+        "LPUART_Type": {
+            "description": "Low Power UART (i.MX RT / KL / K3 series), 32-bit registers",
+            "struct": {
+                "VERID": {"type": "uint32_t", "comment": "0x00 Version ID Register"},
+                "PARAM": {"type": "uint32_t", "comment": "0x04 Parameter Register"},
+                "GLOBAL": {"type": "uint32_t", "comment": "0x08 Global Register"},
+                "PINCFG": {"type": "uint32_t", "comment": "0x0C Pin Configuration Register"},
+                "BAUD": {"type": "uint32_t", "comment": "0x10 Baud Rate Register"},
+                "STAT": {"type": "uint32_t", "comment": "0x14 Status Register"},
+                "CTRL": {"type": "uint32_t", "comment": "0x18 Control Register"},
+                "DATA": {"type": "uint32_t", "comment": "0x1C Data Register"},
+                "MATCH": {"type": "uint32_t", "comment": "0x20 Match Address Register"},
+                "MODIR": {"type": "uint32_t", "comment": "0x24 Modem IrDA Register"},
+                "FIFO": {"type": "uint32_t", "comment": "0x28 FIFO Register"},
+                "WATER": {"type": "uint32_t", "comment": "0x2C Watermark Register"}
+            }
+        },
+        "LPSPI_Type": {
+            "description": "Low Power SPI (i.MX RT / KL series), 32-bit registers",
+            "struct": {
+                "VERID": {"type": "uint32_t", "comment": "0x00 Version ID Register"},
+                "PARAM": {"type": "uint32_t", "comment": "0x04 Parameter Register"},
+                "RESERVED0": {"type": "uint8_t[8]", "comment": "0x08 reserved"},
+                "CR": {"type": "uint32_t", "comment": "0x10 Control Register"},
+                "SR": {"type": "uint32_t", "comment": "0x14 Status Register"},
+                "IER": {"type": "uint32_t", "comment": "0x18 Interrupt Enable Register"},
+                "DER": {"type": "uint32_t", "comment": "0x1C DMA Enable Register"},
+                "CFGR0": {"type": "uint32_t", "comment": "0x20 Configuration Register 0"},
+                "CFGR1": {"type": "uint32_t", "comment": "0x24 Configuration Register 1"},
+                "RESERVED1": {"type": "uint8_t[8]", "comment": "0x28 reserved"},
+                "DMR0": {"type": "uint32_t", "comment": "0x30 Data Match Register 0"},
+                "DMR1": {"type": "uint32_t", "comment": "0x34 Data Match Register 1"},
+                "RESERVED2": {"type": "uint8_t[8]", "comment": "0x38 reserved"},
+                "CCR": {"type": "uint32_t", "comment": "0x40 Clock Configuration Register"},
+                "RESERVED3": {"type": "uint8_t[20]", "comment": "0x44 reserved"},
+                "FCR": {"type": "uint32_t", "comment": "0x58 FIFO Control Register"},
+                "FSR": {"type": "uint32_t", "comment": "0x5C FIFO Status Register"},
+                "TCR": {"type": "uint32_t", "comment": "0x60 Transmit Command Register"},
+                "TDR": {"type": "uint32_t", "comment": "0x64 Transmit Data Register"},
+                "RESERVED4": {"type": "uint8_t[8]", "comment": "0x68 reserved"},
+                "RSR": {"type": "uint32_t", "comment": "0x70 Receive Status Register"},
+                "RDR": {"type": "uint32_t", "comment": "0x74 Receive Data Register"}
+            }
+        },
+        "LPI2C_Type": {
+            "description": "Low Power I2C (i.MX RT / KL series), Master + Slave register banks",
+            "struct": {
+                "VERID": {"type": "uint32_t", "comment": "0x00 Version ID Register"},
+                "PARAM": {"type": "uint32_t", "comment": "0x04 Parameter Register"},
+                "RESERVED0": {"type": "uint8_t[8]", "comment": "0x08 reserved"},
+                "MCR": {"type": "uint32_t", "comment": "0x10 Master Control Register"},
+                "MSR": {"type": "uint32_t", "comment": "0x14 Master Status Register"},
+                "MIER": {"type": "uint32_t", "comment": "0x18 Master Interrupt Enable Register"},
+                "MDER": {"type": "uint32_t", "comment": "0x1C Master DMA Enable Register"},
+                "MCFGR0": {"type": "uint32_t", "comment": "0x20 Master Configuration Register 0"},
+                "MCFGR1": {"type": "uint32_t", "comment": "0x24 Master Configuration Register 1"},
+                "MCFGR2": {"type": "uint32_t", "comment": "0x28 Master Configuration Register 2"},
+                "MCFGR3": {"type": "uint32_t", "comment": "0x2C Master Configuration Register 3"},
+                "RESERVED1": {"type": "uint8_t[16]", "comment": "0x30 reserved"},
+                "MDMR": {"type": "uint32_t", "comment": "0x40 Master Data Match Register"},
+                "RESERVED2": {"type": "uint8_t[4]", "comment": "0x44 reserved"},
+                "MCCR0": {"type": "uint32_t", "comment": "0x48 Master Clock Configuration Register 0"},
+                "RESERVED3": {"type": "uint8_t[4]", "comment": "0x4C reserved"},
+                "MCCR1": {"type": "uint32_t", "comment": "0x50 Master Clock Configuration Register 1"},
+                "RESERVED4": {"type": "uint8_t[4]", "comment": "0x54 reserved"},
+                "MFCR": {"type": "uint32_t", "comment": "0x58 Master FIFO Control Register"},
+                "MFSR": {"type": "uint32_t", "comment": "0x5C Master FIFO Status Register"},
+                "MTDR": {"type": "uint32_t", "comment": "0x60 Master Transmit Data Register"},
+                "RESERVED5": {"type": "uint8_t[12]", "comment": "0x64 reserved"},
+                "MRDR": {"type": "uint32_t", "comment": "0x70 Master Receive Data Register"}
+            }
+        },
+        "I2C_Type": {
+            "description": "Kinetis legacy I2C (8-bit register interface)",
+            "struct": {
+                "A1": {"type": "uint8_t", "comment": "0x00 Address Register 1"},
+                "F": {"type": "uint8_t", "comment": "0x01 Frequency Divider Register"},
+                "C1": {"type": "uint8_t", "comment": "0x02 Control Register 1"},
+                "S": {"type": "uint8_t", "comment": "0x03 Status Register"},
+                "D": {"type": "uint8_t", "comment": "0x04 Data I/O Register"},
+                "C2": {"type": "uint8_t", "comment": "0x05 Control Register 2"},
+                "FLT": {"type": "uint8_t", "comment": "0x06 Glitch Filter Register"},
+                "RA": {"type": "uint8_t", "comment": "0x07 Range Address Register"},
+                "SMB": {"type": "uint8_t", "comment": "0x08 SMBus Control and Status Register"},
+                "A2": {"type": "uint8_t", "comment": "0x09 Address Register 2"},
+                "SLTH": {"type": "uint8_t", "comment": "0x0A SCL Low Timeout Register High"},
+                "SLTL": {"type": "uint8_t", "comment": "0x0B SCL Low Timeout Register Low"}
+            }
+        },
+        "PIT_Type": {
+            "description": "Periodic Interrupt Timer",
+            "struct": {
+                "MCR": {"type": "uint32_t", "comment": "0x00 Module Control Register"},
+                "RESERVED0": {"type": "uint8_t[220]", "comment": "0x04 reserved"},
+                "LTMR64H": {"type": "uint32_t", "comment": "0xE0 Upper Lifetime Timer Register"},
+                "LTMR64L": {"type": "uint32_t", "comment": "0xE4 Lower Lifetime Timer Register"},
+                "RESERVED1": {"type": "uint8_t[24]", "comment": "0xE8 reserved"},
+                "CH0_LDVAL": {"type": "uint32_t", "comment": "0x100 Timer Load Value Register (ch0)"},
+                "CH0_CVAL": {"type": "uint32_t", "comment": "0x104 Current Timer Value Register (ch0)"},
+                "CH0_TCTRL": {"type": "uint32_t", "comment": "0x108 Timer Control Register (ch0)"},
+                "CH0_TFLG": {"type": "uint32_t", "comment": "0x10C Timer Flag Register (ch0)"}
+            }
+        },
+        "DMA_TCD_Type": {
+            "description": "eDMA Transfer Control Descriptor (single channel TCD, 32 bytes)",
+            "struct": {
+                "SADDR": {"type": "uint32_t", "comment": "0x00 Source Address"},
+                "SOFF": {"type": "uint16_t", "comment": "0x04 Source Address Signed Offset"},
+                "ATTR": {"type": "uint16_t", "comment": "0x06 Transfer Attributes"},
+                "NBYTES": {"type": "uint32_t", "comment": "0x08 Minor Byte Count (MLNO/MLOFFNO/MLOFFYES union)"},
+                "SLAST": {"type": "uint32_t", "comment": "0x0C Last Source Address Adjustment"},
+                "DADDR": {"type": "uint32_t", "comment": "0x10 Destination Address"},
+                "DOFF": {"type": "uint16_t", "comment": "0x14 Destination Address Signed Offset"},
+                "CITER": {"type": "uint16_t", "comment": "0x16 Current Major Loop Count (ELINKNO/ELINKYES union)"},
+                "DLAST_SGA": {"type": "uint32_t", "comment": "0x18 Last Dest Adjustment / Scatter Gather Address"},
+                "CSR": {"type": "uint16_t", "comment": "0x1C Control and Status"},
+                "BITER": {"type": "uint16_t", "comment": "0x1E Beginning Major Loop Count (ELINKNO/ELINKYES union)"}
+            }
+        },
+        "WDOG_Type": {
+            "description": "Kinetis Watchdog Timer (WDOG, 16-bit registers)",
+            "struct": {
+                "STCTRLH": {"type": "uint16_t", "comment": "0x00 Status and Control Register High"},
+                "STCTRLL": {"type": "uint16_t", "comment": "0x02 Status and Control Register Low"},
+                "TOVALH": {"type": "uint16_t", "comment": "0x04 Time-out Value Register High"},
+                "TOVALL": {"type": "uint16_t", "comment": "0x06 Time-out Value Register Low"},
+                "WINH": {"type": "uint16_t", "comment": "0x08 Window Register High"},
+                "WINL": {"type": "uint16_t", "comment": "0x0A Window Register Low"},
+                "REFRESH": {"type": "uint16_t", "comment": "0x0C Refresh Register"},
+                "UNLOCK": {"type": "uint16_t", "comment": "0x0E Unlock Register"},
+                "TMROUTH": {"type": "uint16_t", "comment": "0x10 Timer Output Register High"},
+                "TMROUTL": {"type": "uint16_t", "comment": "0x12 Timer Output Register Low"},
+                "RSTCNT": {"type": "uint16_t", "comment": "0x14 Reset Count Register"},
+                "PRESC": {"type": "uint16_t", "comment": "0x16 Prescaler Register"}
+            }
+        },
+        "lpuart_config_t": {
+            "description": "fsl_lpuart driver configuration structure",
+            "struct": {
+                "baudRate_Bps": {"type": "uint32_t", "comment": "Desired baud rate (bits per second)"},
+                "parityMode": {"type": "int", "comment": "enum _lpuart_parity_mode"},
+                "dataBitsCount": {"type": "int", "comment": "enum _lpuart_data_bits"},
+                "isMsb": {"type": "uint8_t", "comment": "Data transfer MSB-first (bool)"},
+                "stopBitCount": {"type": "int", "comment": "enum _lpuart_stop_bit_count"},
+                "txFifoWatermark": {"type": "uint8_t", "comment": "TX FIFO watermark"},
+                "rxFifoWatermark": {"type": "uint8_t", "comment": "RX FIFO watermark"},
+                "enableRxRTS": {"type": "uint8_t", "comment": "RX RTS enable (bool)"},
+                "enableTxCTS": {"type": "uint8_t", "comment": "TX CTS enable (bool)"},
+                "txCtsConfig": {"type": "int", "comment": "TX CTS configuration (enum)"},
+                "txCtsSource": {"type": "int", "comment": "TX CTS source (enum)"},
+                "enableTx": {"type": "uint8_t", "comment": "Enable transmitter (bool)"},
+                "enableRx": {"type": "uint8_t", "comment": "Enable receiver (bool)"}
+            }
+        },
+        "lpuart_handle_t": {
+            "description": "fsl_lpuart non-blocking transfer handle",
+            "struct": {
+                "txData": {"type": "uint8_t *", "comment": "Address of remaining data to send (volatile)"},
+                "txDataSize": {"type": "uint32_t", "comment": "Size of remaining data to send (volatile)"},
+                "txDataSizeAll": {"type": "uint32_t", "comment": "Total bytes to be sent"},
+                "rxData": {"type": "uint8_t *", "comment": "Address of remaining data to receive (volatile)"},
+                "rxDataSize": {"type": "uint32_t", "comment": "Size of remaining data to receive (volatile)"},
+                "rxDataSizeAll": {"type": "uint32_t", "comment": "Total bytes to be received"},
+                "rxRingBuffer": {"type": "uint8_t *", "comment": "Start address of RX ring buffer"},
+                "rxRingBufferSize": {"type": "uint32_t", "comment": "Size of RX ring buffer"},
+                "rxRingBufferHead": {"type": "uint16_t", "comment": "RX ring buffer head index (volatile)"},
+                "rxRingBufferTail": {"type": "uint16_t", "comment": "RX ring buffer tail index (volatile)"},
+                "callback": {"type": "void *", "comment": "lpuart_transfer_callback_t callback function"},
+                "userData": {"type": "void *", "comment": "User data passed to callback"},
+                "rxState": {"type": "uint8_t", "comment": "RX transfer state (volatile)"},
+                "txState": {"type": "uint8_t", "comment": "TX transfer state (volatile)"}
+            }
+        },
+        "lpspi_master_config_t": {
+            "description": "fsl_lpspi master configuration structure",
+            "struct": {
+                "baudRate": {"type": "uint32_t", "comment": "Baud rate configuration"},
+                "bitsPerFrame": {"type": "uint32_t", "comment": "Bits per frame, minimum 8, maximum 4096"},
+                "cpol": {"type": "int", "comment": "Clock polarity (enum lpspi_clock_polarity_t)"},
+                "cpha": {"type": "int", "comment": "Clock phase (enum lpspi_clock_phase_t)"},
+                "direction": {"type": "int", "comment": "MSB or LSB first (enum lpspi_shift_direction_t)"},
+                "pcsToSckDelayInNanoSec": {"type": "uint32_t", "comment": "PCS to SCK delay (ns)"},
+                "lastSckToPcsDelayInNanoSec": {"type": "uint32_t", "comment": "Last SCK to PCS delay (ns)"},
+                "betweenTransferDelayInNanoSec": {"type": "uint32_t", "comment": "Delay between transfers (ns)"},
+                "whichPcs": {"type": "int", "comment": "Desired Peripheral Chip Select (enum)"},
+                "pcsActiveHighOrLow": {"type": "int", "comment": "PCS active high or low (enum)"},
+                "pinCfg": {"type": "int", "comment": "Pin configuration (enum lpspi_pin_config_t)"},
+                "dataOutConfig": {"type": "int", "comment": "Data out tristate config (enum)"}
+            }
+        },
+        "lpi2c_master_config_t": {
+            "description": "fsl_lpi2c master configuration structure",
+            "struct": {
+                "enableMaster": {"type": "uint8_t", "comment": "Enable LPI2C master peripheral (bool)"},
+                "enableDoze": {"type": "uint8_t", "comment": "Enable in doze mode (bool)"},
+                "debugEnable": {"type": "uint8_t", "comment": "Continue in debug mode (bool)"},
+                "ignoreAck": {"type": "uint8_t", "comment": "Ignore NACK and continue (bool)"},
+                "pinConfig": {"type": "int", "comment": "Pin mode (enum lpi2c_master_pin_config_t)"},
+                "baudRate_Hz": {"type": "uint32_t", "comment": "Desired baud rate (Hz)"},
+                "busIdleTimeout_ns": {"type": "uint32_t", "comment": "Bus idle timeout (ns), 0 disables"},
+                "pinLowTimeout_ns": {"type": "uint32_t", "comment": "Pin low timeout (ns), 0 disables"},
+                "sdaGlitchFilterWidth_ns": {"type": "uint8_t", "comment": "SDA glitch filter width (ns)"},
+                "sclGlitchFilterWidth_ns": {"type": "uint8_t", "comment": "SCL glitch filter width (ns)"},
+                "hostRequest_enable": {"type": "uint8_t", "comment": "Host request input enable (bool)"},
+                "hostRequest_source": {"type": "int", "comment": "Host request source (enum)"},
+                "hostRequest_polarity": {"type": "int", "comment": "Host request polarity (enum)"}
+            }
+        },
+        "edma_transfer_config_t": {
+            "description": "fsl_edma data transfer configuration",
+            "struct": {
+                "srcAddr": {"type": "uint32_t", "comment": "Source address"},
+                "destAddr": {"type": "uint32_t", "comment": "Destination address"},
+                "srcTransferSize": {"type": "int", "comment": "Source transfer size (enum edma_transfer_size_t)"},
+                "destTransferSize": {"type": "int", "comment": "Destination transfer size (enum)"},
+                "srcOffset": {"type": "uint16_t", "comment": "Source address offset per transfer (signed int16_t in SDK)"},
+                "destOffset": {"type": "uint16_t", "comment": "Destination address offset per transfer (signed int16_t in SDK)"},
+                "minorLoopBytes": {"type": "uint32_t", "comment": "Bytes per minor loop"},
+                "majorLoopCounts": {"type": "uint32_t", "comment": "Major loop iteration count"}
+            }
+        }
+    }
+}

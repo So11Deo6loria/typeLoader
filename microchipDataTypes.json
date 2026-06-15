@@ -1,0 +1,1085 @@
+{
+    "enums": {
+        "status_code": {
+            "STATUS_OK": {
+                "value": 0,
+                "comment": "Success"
+            },
+            "STATUS_VALID_DATA": {
+                "value": 1,
+                "comment": "Used for ranges and sets; valid data"
+            },
+            "STATUS_NO_CHANGE": {
+                "value": 2,
+                "comment": "No change occurred"
+            },
+            "STATUS_ABORTED": {
+                "value": 4,
+                "comment": "Operation aborted by user"
+            },
+            "STATUS_BUSY": {
+                "value": 5,
+                "comment": "Resource is busy"
+            },
+            "STATUS_SUSPEND": {
+                "value": 6,
+                "comment": "Operation suspended"
+            },
+            "STATUS_ERR_IO": {
+                "value": 16,
+                "comment": "I/O error (0x10)"
+            },
+            "STATUS_ERR_REQ_FLUSHED": {
+                "value": 17,
+                "comment": "Request flushed (0x11)"
+            },
+            "STATUS_ERR_TIMEOUT": {
+                "value": 18,
+                "comment": "Operation timed out (0x12)"
+            },
+            "STATUS_ERR_BAD_DATA": {
+                "value": 19,
+                "comment": "Bad/corrupt data (0x13)"
+            },
+            "STATUS_ERR_NOT_FOUND": {
+                "value": 20,
+                "comment": "Item not found (0x14)"
+            },
+            "STATUS_ERR_UNSUPPORTED_DEV": {
+                "value": 21,
+                "comment": "Unsupported device (0x15)"
+            },
+            "STATUS_ERR_NO_MEMORY": {
+                "value": 22,
+                "comment": "Insufficient memory (0x16)"
+            },
+            "STATUS_ERR_INVALID_ARG": {
+                "value": 23,
+                "comment": "Invalid argument (0x17)"
+            },
+            "STATUS_ERR_BAD_ADDRESS": {
+                "value": 24,
+                "comment": "Bad address (0x18)"
+            },
+            "STATUS_ERR_BUSY": {
+                "value": 25,
+                "comment": "Resource busy (0x19)"
+            },
+            "STATUS_ERR_BAD_FORMAT": {
+                "value": 26,
+                "comment": "Data format not recognized (0x1A)"
+            },
+            "STATUS_ERR_DENIED": {
+                "value": 27,
+                "comment": "Operation denied (0x1B)"
+            },
+            "STATUS_ERR_ALREADY_INITIALIZED": {
+                "value": 28,
+                "comment": "Already initialized (0x1C)"
+            },
+            "STATUS_ERR_OVERFLOW": {
+                "value": 29,
+                "comment": "Overflow (0x1D)"
+            },
+            "STATUS_ERR_NOT_INITIALIZED": {
+                "value": 30,
+                "comment": "Not initialized (0x1E)"
+            },
+            "STATUS_ERR_PROTOCOL": {
+                "value": 31,
+                "comment": "Protocol error (0x1F)"
+            },
+            "STATUS_ERR_PACKET_COLLISION": {
+                "value": 32,
+                "comment": "Packet collision (0x20)"
+            }
+        },
+        "sercom_mode": {
+            "SERCOM_MODE_USART_EXT": {
+                "value": 0,
+                "comment": "USART with external clock (CTRLA.MODE=0)"
+            },
+            "SERCOM_MODE_USART_INT": {
+                "value": 1,
+                "comment": "USART with internal clock (CTRLA.MODE=1)"
+            },
+            "SERCOM_MODE_SPI_SLAVE": {
+                "value": 2,
+                "comment": "SPI in slave/peripheral mode (CTRLA.MODE=2)"
+            },
+            "SERCOM_MODE_SPI_MASTER": {
+                "value": 3,
+                "comment": "SPI in master/host mode (CTRLA.MODE=3)"
+            },
+            "SERCOM_MODE_I2C_SLAVE": {
+                "value": 4,
+                "comment": "I2C in slave/client mode (CTRLA.MODE=4)"
+            },
+            "SERCOM_MODE_I2C_MASTER": {
+                "value": 5,
+                "comment": "I2C in master/host mode (CTRLA.MODE=5)"
+            }
+        }
+    },
+    "structs": {
+        "PORT_GROUP": {
+            "description": "SAM D PORT group register block (one per port group, 0x80 byte stride)",
+            "struct": {
+                "DIR": {
+                    "type": "uint32_t",
+                    "comment": "0x00 Data Direction"
+                },
+                "DIRCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Data Direction Clear"
+                },
+                "DIRSET": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Data Direction Set"
+                },
+                "DIRTGL": {
+                    "type": "uint32_t",
+                    "comment": "0x0C Data Direction Toggle"
+                },
+                "OUT": {
+                    "type": "uint32_t",
+                    "comment": "0x10 Data Output Value"
+                },
+                "OUTCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x14 Data Output Value Clear"
+                },
+                "OUTSET": {
+                    "type": "uint32_t",
+                    "comment": "0x18 Data Output Value Set"
+                },
+                "OUTTGL": {
+                    "type": "uint32_t",
+                    "comment": "0x1C Data Output Value Toggle"
+                },
+                "IN": {
+                    "type": "uint32_t",
+                    "comment": "0x20 Data Input Value"
+                },
+                "CTRL": {
+                    "type": "uint32_t",
+                    "comment": "0x24 Control"
+                },
+                "WRCONFIG": {
+                    "type": "uint32_t",
+                    "comment": "0x28 Write Configuration (write-only)"
+                },
+                "EVCTRL": {
+                    "type": "uint32_t",
+                    "comment": "0x2C Event Input Control (D5x/E5x; reserved on some D21)"
+                },
+                "PMUX": {
+                    "type": "uint8_t[16]",
+                    "comment": "0x30 Peripheral Multiplexing (one nibble pair per pin)"
+                },
+                "PINCFG": {
+                    "type": "uint8_t[32]",
+                    "comment": "0x40 Pin Configuration (one byte per pin)"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t[32]",
+                    "comment": "0x60-0x7F reserved (pad to 0x80 group stride)"
+                }
+            }
+        },
+        "SERCOM_USART": {
+            "description": "SAM D21/D5x SERCOM in USART mode (CTRLA.MODE = 0x0/0x1)",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint32_t",
+                    "comment": "0x00 Control A"
+                },
+                "CTRLB": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Control B"
+                },
+                "CTRLC": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Control C (D5x/E5x; reserved on D21)"
+                },
+                "BAUD": {
+                    "type": "uint16_t",
+                    "comment": "0x0C Baud Rate"
+                },
+                "RXPL": {
+                    "type": "uint8_t",
+                    "comment": "0x0E Receive Pulse Length"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t[5]",
+                    "comment": "0x0F-0x13 reserved"
+                },
+                "INTENCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x14 Interrupt Enable Clear"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t",
+                    "comment": "0x15 reserved"
+                },
+                "INTENSET": {
+                    "type": "uint8_t",
+                    "comment": "0x16 Interrupt Enable Set"
+                },
+                "RESERVED2": {
+                    "type": "uint8_t",
+                    "comment": "0x17 reserved"
+                },
+                "INTFLAG": {
+                    "type": "uint8_t",
+                    "comment": "0x18 Interrupt Flag Status and Clear"
+                },
+                "RESERVED3": {
+                    "type": "uint8_t",
+                    "comment": "0x19 reserved"
+                },
+                "STATUS": {
+                    "type": "uint16_t",
+                    "comment": "0x1A Status"
+                },
+                "SYNCBUSY": {
+                    "type": "uint32_t",
+                    "comment": "0x1C Synchronization Busy"
+                },
+                "RXERRCNT": {
+                    "type": "uint8_t",
+                    "comment": "0x20 Receive Error Count (D5x/E5x; reserved on D21)"
+                },
+                "RESERVED4": {
+                    "type": "uint8_t[3]",
+                    "comment": "0x21-0x23 reserved"
+                },
+                "DATA": {
+                    "type": "uint32_t",
+                    "comment": "0x28 Data (16-bit field; 0x24-0x27 reserved precedes it)"
+                },
+                "RESERVED5": {
+                    "type": "uint8_t[4]",
+                    "comment": "0x24-0x27 reserved (placed after to keep DATA at 0x28)"
+                },
+                "DBGCTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x30 Debug Control (0x2C-0x2F reserved precedes)"
+                }
+            }
+        },
+        "SERCOM_SPI": {
+            "description": "SAM D21/D5x SERCOM in SPI mode (CTRLA.MODE = 0x2/0x3); overlays same SERCOM base",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint32_t",
+                    "comment": "0x00 Control A"
+                },
+                "CTRLB": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Control B"
+                },
+                "CTRLC": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Control C (D5x/E5x; reserved on D21)"
+                },
+                "BAUD": {
+                    "type": "uint8_t",
+                    "comment": "0x0C Baud Rate"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t[7]",
+                    "comment": "0x0D-0x13 reserved"
+                },
+                "INTENCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x14 Interrupt Enable Clear"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t",
+                    "comment": "0x15 reserved"
+                },
+                "INTENSET": {
+                    "type": "uint8_t",
+                    "comment": "0x16 Interrupt Enable Set"
+                },
+                "RESERVED2": {
+                    "type": "uint8_t",
+                    "comment": "0x17 reserved"
+                },
+                "INTFLAG": {
+                    "type": "uint8_t",
+                    "comment": "0x18 Interrupt Flag Status and Clear"
+                },
+                "RESERVED3": {
+                    "type": "uint8_t",
+                    "comment": "0x19 reserved"
+                },
+                "STATUS": {
+                    "type": "uint16_t",
+                    "comment": "0x1A Status"
+                },
+                "SYNCBUSY": {
+                    "type": "uint32_t",
+                    "comment": "0x1C Synchronization Busy"
+                },
+                "RESERVED4": {
+                    "type": "uint8_t[4]",
+                    "comment": "0x20-0x23 reserved"
+                },
+                "ADDR": {
+                    "type": "uint32_t",
+                    "comment": "0x24 Address"
+                },
+                "DATA": {
+                    "type": "uint32_t",
+                    "comment": "0x28 Data"
+                },
+                "RESERVED5": {
+                    "type": "uint8_t[4]",
+                    "comment": "0x2C-0x2F reserved"
+                },
+                "DBGCTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x30 Debug Control"
+                }
+            }
+        },
+        "SERCOM_I2CM": {
+            "description": "SAM D21/D5x SERCOM in I2C master mode (CTRLA.MODE = 0x5); overlays same SERCOM base",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint32_t",
+                    "comment": "0x00 Control A"
+                },
+                "CTRLB": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Control B"
+                },
+                "CTRLC": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Control C (D5x/E5x; reserved on D21)"
+                },
+                "BAUD": {
+                    "type": "uint32_t",
+                    "comment": "0x0C Baud Rate"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t[4]",
+                    "comment": "0x10-0x13 reserved"
+                },
+                "INTENCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x14 Interrupt Enable Clear"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t",
+                    "comment": "0x15 reserved"
+                },
+                "INTENSET": {
+                    "type": "uint8_t",
+                    "comment": "0x16 Interrupt Enable Set"
+                },
+                "RESERVED2": {
+                    "type": "uint8_t",
+                    "comment": "0x17 reserved"
+                },
+                "INTFLAG": {
+                    "type": "uint8_t",
+                    "comment": "0x18 Interrupt Flag Status and Clear"
+                },
+                "RESERVED3": {
+                    "type": "uint8_t",
+                    "comment": "0x19 reserved"
+                },
+                "STATUS": {
+                    "type": "uint16_t",
+                    "comment": "0x1A Status"
+                },
+                "SYNCBUSY": {
+                    "type": "uint32_t",
+                    "comment": "0x1C Synchronization Busy"
+                },
+                "RESERVED4": {
+                    "type": "uint8_t[4]",
+                    "comment": "0x20-0x23 reserved"
+                },
+                "ADDR": {
+                    "type": "uint32_t",
+                    "comment": "0x24 Address"
+                },
+                "DATA": {
+                    "type": "uint32_t",
+                    "comment": "0x28 Data (8-bit field)"
+                },
+                "RESERVED5": {
+                    "type": "uint8_t[4]",
+                    "comment": "0x2C-0x2F reserved"
+                },
+                "DBGCTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x30 Debug Control"
+                }
+            }
+        },
+        "TC_COUNT16": {
+            "description": "SAM D21/D5x Timer/Counter in 16-bit (COUNT16) mode",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint32_t",
+                    "comment": "0x00 Control A"
+                },
+                "CTRLBCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x04 Control B Clear"
+                },
+                "CTRLBSET": {
+                    "type": "uint8_t",
+                    "comment": "0x05 Control B Set"
+                },
+                "EVCTRL": {
+                    "type": "uint16_t",
+                    "comment": "0x06 Event Control"
+                },
+                "INTENCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x08 Interrupt Enable Clear"
+                },
+                "INTENSET": {
+                    "type": "uint8_t",
+                    "comment": "0x09 Interrupt Enable Set"
+                },
+                "INTFLAG": {
+                    "type": "uint8_t",
+                    "comment": "0x0A Interrupt Flag Status and Clear"
+                },
+                "STATUS": {
+                    "type": "uint8_t",
+                    "comment": "0x0B Status (D21; widened on D5x)"
+                },
+                "WAVE": {
+                    "type": "uint8_t",
+                    "comment": "0x0C Waveform Generation Control (D5x/E5x; reserved on D21)"
+                },
+                "DRVCTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x0D Driver Control (D5x/E5x)"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t",
+                    "comment": "0x0E reserved"
+                },
+                "DBGCTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x0F Debug Control"
+                },
+                "SYNCBUSY": {
+                    "type": "uint32_t",
+                    "comment": "0x10 Synchronization Busy (D5x/E5x; reserved offset on D21)"
+                },
+                "COUNT": {
+                    "type": "uint16_t",
+                    "comment": "0x14 Count value (16-bit)"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t[10]",
+                    "comment": "0x16-0x1F reserved"
+                },
+                "CC0": {
+                    "type": "uint16_t",
+                    "comment": "0x20 Compare/Capture 0"
+                },
+                "CC1": {
+                    "type": "uint16_t",
+                    "comment": "0x22 Compare/Capture 1"
+                }
+            }
+        },
+        "TC_COUNT32": {
+            "description": "SAM D21/D5x Timer/Counter in 32-bit (COUNT32) mode",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint32_t",
+                    "comment": "0x00 Control A"
+                },
+                "CTRLBCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x04 Control B Clear"
+                },
+                "CTRLBSET": {
+                    "type": "uint8_t",
+                    "comment": "0x05 Control B Set"
+                },
+                "EVCTRL": {
+                    "type": "uint16_t",
+                    "comment": "0x06 Event Control"
+                },
+                "INTENCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x08 Interrupt Enable Clear"
+                },
+                "INTENSET": {
+                    "type": "uint8_t",
+                    "comment": "0x09 Interrupt Enable Set"
+                },
+                "INTFLAG": {
+                    "type": "uint8_t",
+                    "comment": "0x0A Interrupt Flag Status and Clear"
+                },
+                "STATUS": {
+                    "type": "uint8_t",
+                    "comment": "0x0B Status"
+                },
+                "WAVE": {
+                    "type": "uint8_t",
+                    "comment": "0x0C Waveform Generation Control (D5x/E5x)"
+                },
+                "DRVCTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x0D Driver Control (D5x/E5x)"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t",
+                    "comment": "0x0E reserved"
+                },
+                "DBGCTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x0F Debug Control"
+                },
+                "SYNCBUSY": {
+                    "type": "uint32_t",
+                    "comment": "0x10 Synchronization Busy (D5x/E5x)"
+                },
+                "COUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x14 Count value (32-bit)"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t[8]",
+                    "comment": "0x18-0x1F reserved"
+                },
+                "CC0": {
+                    "type": "uint32_t",
+                    "comment": "0x20 Compare/Capture 0"
+                },
+                "CC1": {
+                    "type": "uint32_t",
+                    "comment": "0x24 Compare/Capture 1"
+                }
+            }
+        },
+        "TCC": {
+            "description": "SAM D21/D5x Timer/Counter for Control (TCC) register block (partial, key registers)",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint32_t",
+                    "comment": "0x00 Control A"
+                },
+                "CTRLBCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x04 Control B Clear"
+                },
+                "CTRLBSET": {
+                    "type": "uint8_t",
+                    "comment": "0x05 Control B Set"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t[2]",
+                    "comment": "0x06-0x07 reserved"
+                },
+                "SYNCBUSY": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Synchronization Busy"
+                },
+                "FCTRLA": {
+                    "type": "uint32_t",
+                    "comment": "0x0C Recoverable Fault A Configuration"
+                },
+                "FCTRLB": {
+                    "type": "uint32_t",
+                    "comment": "0x10 Recoverable Fault B Configuration"
+                },
+                "WEXCTRL": {
+                    "type": "uint32_t",
+                    "comment": "0x14 Waveform Extension Control"
+                },
+                "DRVCTRL": {
+                    "type": "uint32_t",
+                    "comment": "0x18 Driver Control"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t[2]",
+                    "comment": "0x1C-0x1D reserved"
+                },
+                "DBGCTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x1E Debug Control"
+                },
+                "RESERVED2": {
+                    "type": "uint8_t",
+                    "comment": "0x1F reserved"
+                },
+                "EVCTRL": {
+                    "type": "uint32_t",
+                    "comment": "0x20 Event Control"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x24 Interrupt Enable Clear"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x28 Interrupt Enable Set"
+                },
+                "INTFLAG": {
+                    "type": "uint32_t",
+                    "comment": "0x2C Interrupt Flag Status and Clear"
+                },
+                "STATUS": {
+                    "type": "uint32_t",
+                    "comment": "0x30 Status"
+                },
+                "COUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x34 Count"
+                },
+                "PATT": {
+                    "type": "uint16_t",
+                    "comment": "0x38 Pattern"
+                },
+                "RESERVED3": {
+                    "type": "uint8_t[2]",
+                    "comment": "0x3A-0x3B reserved"
+                },
+                "WAVE": {
+                    "type": "uint32_t",
+                    "comment": "0x3C Waveform Control"
+                },
+                "PER": {
+                    "type": "uint32_t",
+                    "comment": "0x40 Period"
+                },
+                "CC": {
+                    "type": "uint32_t[4]",
+                    "comment": "0x44 Compare/Capture channels 0-3"
+                }
+            }
+        },
+        "EIC": {
+            "description": "SAM D5x/E5x External Interrupt Controller (EIC) register block",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint8_t",
+                    "comment": "0x00 Control A"
+                },
+                "NMICTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x01 Non-Maskable Interrupt Control"
+                },
+                "NMIFLAG": {
+                    "type": "uint16_t",
+                    "comment": "0x02 Non-Maskable Interrupt Flag Status and Clear"
+                },
+                "SYNCBUSY": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Synchronization Busy"
+                },
+                "EVCTRL": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Event Control"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x0C Interrupt Enable Clear"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x10 Interrupt Enable Set"
+                },
+                "INTFLAG": {
+                    "type": "uint32_t",
+                    "comment": "0x14 Interrupt Flag Status and Clear"
+                },
+                "ASYNCH": {
+                    "type": "uint32_t",
+                    "comment": "0x18 External Interrupt Asynchronous Mode"
+                },
+                "CONFIG": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x1C Configuration 0..1 (4-bit sense per pin)"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t[16]",
+                    "comment": "0x24-0x33 reserved"
+                },
+                "DEBOUNCEN": {
+                    "type": "uint32_t",
+                    "comment": "0x30 Debouncer Enable (D5x/E5x)"
+                },
+                "DPRESCALER": {
+                    "type": "uint32_t",
+                    "comment": "0x34 Debouncer Prescaler"
+                },
+                "PINSTATE": {
+                    "type": "uint32_t",
+                    "comment": "0x38 Pin State"
+                }
+            }
+        },
+        "EIC_D21": {
+            "description": "SAM D21 External Interrupt Controller (EIC) register block (8-bit CTRL/no SYNCBUSY)",
+            "struct": {
+                "CTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x00 Control"
+                },
+                "STATUS": {
+                    "type": "uint8_t",
+                    "comment": "0x01 Status (SYNCBUSY bit)"
+                },
+                "NMICTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x02 Non-Maskable Interrupt Control"
+                },
+                "NMIFLAG": {
+                    "type": "uint8_t",
+                    "comment": "0x03 Non-Maskable Interrupt Flag Status and Clear"
+                },
+                "EVCTRL": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Event Control"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Interrupt Enable Clear"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x0C Interrupt Enable Set"
+                },
+                "INTFLAG": {
+                    "type": "uint32_t",
+                    "comment": "0x10 Interrupt Flag Status and Clear"
+                },
+                "WAKEUP": {
+                    "type": "uint32_t",
+                    "comment": "0x14 Wake-Up Enable"
+                },
+                "CONFIG": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x18 Configuration 0..1"
+                }
+            }
+        },
+        "NVMCTRL": {
+            "description": "SAM D21 Non-Volatile Memory Controller (NVMCTRL) register block",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint16_t",
+                    "comment": "0x00 Control A"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t[2]",
+                    "comment": "0x02-0x03 reserved"
+                },
+                "CTRLB": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Control B"
+                },
+                "PARAM": {
+                    "type": "uint32_t",
+                    "comment": "0x08 NVM Parameter"
+                },
+                "INTENCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x0C Interrupt Enable Clear"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t[3]",
+                    "comment": "0x0D-0x0F reserved"
+                },
+                "INTENSET": {
+                    "type": "uint8_t",
+                    "comment": "0x10 Interrupt Enable Set"
+                },
+                "RESERVED2": {
+                    "type": "uint8_t[3]",
+                    "comment": "0x11-0x13 reserved"
+                },
+                "INTFLAG": {
+                    "type": "uint8_t",
+                    "comment": "0x14 Interrupt Flag Status and Clear"
+                },
+                "RESERVED3": {
+                    "type": "uint8_t[3]",
+                    "comment": "0x15-0x17 reserved"
+                },
+                "STATUS": {
+                    "type": "uint16_t",
+                    "comment": "0x18 Status"
+                },
+                "RESERVED4": {
+                    "type": "uint8_t[2]",
+                    "comment": "0x1A-0x1B reserved"
+                },
+                "ADDR": {
+                    "type": "uint32_t",
+                    "comment": "0x1C Address"
+                },
+                "LOCK": {
+                    "type": "uint16_t",
+                    "comment": "0x20 Lock Section"
+                }
+            }
+        },
+        "GCLK_D21": {
+            "description": "SAM D21 Generic Clock Controller (GCLK) register block",
+            "struct": {
+                "CTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x00 Control"
+                },
+                "STATUS": {
+                    "type": "uint8_t",
+                    "comment": "0x01 Status (SYNCBUSY bit)"
+                },
+                "CLKCTRL": {
+                    "type": "uint16_t",
+                    "comment": "0x02 Generic Clock Control (channel selected by ID field)"
+                },
+                "GENCTRL": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Generic Clock Generator Control"
+                },
+                "GENDIV": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Generic Clock Generator Division"
+                }
+            }
+        },
+        "PM_D21": {
+            "description": "SAM D21 Power Manager (PM) register block (partial: clock mask/divider registers)",
+            "struct": {
+                "CTRL": {
+                    "type": "uint8_t",
+                    "comment": "0x00 Control"
+                },
+                "SLEEP": {
+                    "type": "uint8_t",
+                    "comment": "0x01 Sleep Mode"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t[6]",
+                    "comment": "0x02-0x07 reserved"
+                },
+                "CPUSEL": {
+                    "type": "uint8_t",
+                    "comment": "0x08 CPU Clock Select"
+                },
+                "APBASEL": {
+                    "type": "uint8_t",
+                    "comment": "0x09 APBA Clock Select"
+                },
+                "APBBSEL": {
+                    "type": "uint8_t",
+                    "comment": "0x0A APBB Clock Select"
+                },
+                "APBCSEL": {
+                    "type": "uint8_t",
+                    "comment": "0x0B APBC Clock Select"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t[8]",
+                    "comment": "0x0C-0x13 reserved"
+                },
+                "AHBMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x14 AHB Mask"
+                },
+                "APBAMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x18 APBA Mask"
+                },
+                "APBBMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x1C APBB Mask"
+                },
+                "APBCMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x20 APBC Mask"
+                }
+            }
+        },
+        "MCLK": {
+            "description": "SAM D5x/E5x Main Clock (MCLK) register block",
+            "struct": {
+                "CTRLA": {
+                    "type": "uint8_t",
+                    "comment": "0x00 Control A"
+                },
+                "RESERVED0": {
+                    "type": "uint8_t",
+                    "comment": "0x01 reserved"
+                },
+                "INTENCLR": {
+                    "type": "uint8_t",
+                    "comment": "0x02 Interrupt Enable Clear"
+                },
+                "INTENSET": {
+                    "type": "uint8_t",
+                    "comment": "0x03 Interrupt Enable Set"
+                },
+                "INTFLAG": {
+                    "type": "uint8_t",
+                    "comment": "0x04 Interrupt Flag Status and Clear"
+                },
+                "RESERVED1": {
+                    "type": "uint8_t[2]",
+                    "comment": "0x05-0x06 reserved"
+                },
+                "HSDIV": {
+                    "type": "uint8_t",
+                    "comment": "0x07 High-Speed Clock Division (read-only)"
+                },
+                "CPUDIV": {
+                    "type": "uint8_t",
+                    "comment": "0x08 CPU Clock Division"
+                },
+                "RESERVED2": {
+                    "type": "uint8_t[7]",
+                    "comment": "0x09-0x0F reserved"
+                },
+                "AHBMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x10 AHB Mask"
+                },
+                "APBAMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x14 APBA Mask"
+                },
+                "APBBMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x18 APBB Mask"
+                },
+                "APBCMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x1C APBC Mask"
+                },
+                "APBDMASK": {
+                    "type": "uint32_t",
+                    "comment": "0x20 APBD Mask"
+                }
+            }
+        },
+        "dmac_descriptor": {
+            "description": "SAM D/E DMAC transfer descriptor (DmacDescriptor, 16 bytes, used for base/writeback tables)",
+            "struct": {
+                "BTCTRL": {
+                    "type": "uint16_t",
+                    "comment": "0x00 Block Transfer Control"
+                },
+                "BTCNT": {
+                    "type": "uint16_t",
+                    "comment": "0x02 Block Transfer Count"
+                },
+                "SRCADDR": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Transfer Source Address"
+                },
+                "DSTADDR": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Transfer Destination Address"
+                },
+                "DESCADDR": {
+                    "type": "uint32_t",
+                    "comment": "0x0C Next Descriptor Address (0 to terminate)"
+                }
+            }
+        },
+        "PIC32_PORT": {
+            "description": "PIC32MX/MZ GPIO port register block (one port letter; SET/CLR/INV at +4/+8/+0xC of each base)",
+            "struct": {
+                "ANSEL": {
+                    "type": "uint32_t",
+                    "comment": "0x00 Analog Select"
+                },
+                "ANSELCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x04 Analog Select Clear"
+                },
+                "ANSELSET": {
+                    "type": "uint32_t",
+                    "comment": "0x08 Analog Select Set"
+                },
+                "ANSELINV": {
+                    "type": "uint32_t",
+                    "comment": "0x0C Analog Select Invert"
+                },
+                "TRIS": {
+                    "type": "uint32_t",
+                    "comment": "0x10 Tri-State (data direction; 1=input)"
+                },
+                "TRISCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x14 Tri-State Clear"
+                },
+                "TRISSET": {
+                    "type": "uint32_t",
+                    "comment": "0x18 Tri-State Set"
+                },
+                "TRISINV": {
+                    "type": "uint32_t",
+                    "comment": "0x1C Tri-State Invert"
+                },
+                "PORT": {
+                    "type": "uint32_t",
+                    "comment": "0x20 Port Input Value"
+                },
+                "PORTCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x24 Port Clear"
+                },
+                "PORTSET": {
+                    "type": "uint32_t",
+                    "comment": "0x28 Port Set"
+                },
+                "PORTINV": {
+                    "type": "uint32_t",
+                    "comment": "0x2C Port Invert"
+                },
+                "LAT": {
+                    "type": "uint32_t",
+                    "comment": "0x30 Output Latch"
+                },
+                "LATCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x34 Latch Clear"
+                },
+                "LATSET": {
+                    "type": "uint32_t",
+                    "comment": "0x38 Latch Set"
+                },
+                "LATINV": {
+                    "type": "uint32_t",
+                    "comment": "0x3C Latch Invert"
+                },
+                "ODC": {
+                    "type": "uint32_t",
+                    "comment": "0x40 Open-Drain Configuration"
+                },
+                "ODCCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x44 Open-Drain Clear"
+                },
+                "ODCSET": {
+                    "type": "uint32_t",
+                    "comment": "0x48 Open-Drain Set"
+                },
+                "ODCINV": {
+                    "type": "uint32_t",
+                    "comment": "0x4C Open-Drain Invert"
+                }
+            }
+        }
+    }
+}

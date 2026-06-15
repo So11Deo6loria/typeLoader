@@ -1,0 +1,297 @@
+{
+    "enums": {
+        "fsp_err_t": {
+            "FSP_SUCCESS": {"value": 0, "comment": "Operation succeeded"},
+            "FSP_ERR_ASSERTION": {"value": 1, "comment": "A critical assertion has failed"},
+            "FSP_ERR_INVALID_POINTER": {"value": 2, "comment": "Pointer points to invalid memory location"},
+            "FSP_ERR_INVALID_ARGUMENT": {"value": 3, "comment": "Invalid input parameter"},
+            "FSP_ERR_INVALID_CHANNEL": {"value": 4, "comment": "Selected channel does not exist"},
+            "FSP_ERR_INVALID_MODE": {"value": 5, "comment": "Unsupported or incorrect mode"},
+            "FSP_ERR_UNSUPPORTED": {"value": 6, "comment": "Selected mode not supported by this API"},
+            "FSP_ERR_NOT_OPEN": {"value": 7, "comment": "Requested channel is not configured or API not open"},
+            "FSP_ERR_IN_USE": {"value": 8, "comment": "Channel/peripheral is running/busy"},
+            "FSP_ERR_OUT_OF_MEMORY": {"value": 9, "comment": "Allocate more memory in the menu config"},
+            "FSP_ERR_HW_LOCKED": {"value": 10, "comment": "Hardware is locked"},
+            "FSP_ERR_IRQ_BSP_DISABLED": {"value": 11, "comment": "IRQ not enabled in BSP"},
+            "FSP_ERR_OVERFLOW": {"value": 12, "comment": "Hardware overflow"},
+            "FSP_ERR_UNDERFLOW": {"value": 13, "comment": "Hardware underflow"},
+            "FSP_ERR_ALREADY_OPEN": {"value": 14, "comment": "Requested channel is already open in a different configuration"},
+            "FSP_ERR_APPROXIMATION": {"value": 15, "comment": "Could not set value to exact result"},
+            "FSP_ERR_CLAMPED": {"value": 16, "comment": "Value had to be limited for some reason"},
+            "FSP_ERR_INVALID_RATE": {"value": 17, "comment": "Selected rate could not be met with given clock"},
+            "FSP_ERR_ABORTED": {"value": 18, "comment": "An operation was aborted"},
+            "FSP_ERR_NOT_ENABLED": {"value": 19, "comment": "Requested operation is not enabled"},
+            "FSP_ERR_TIMEOUT": {"value": 20, "comment": "Timeout error"},
+            "FSP_ERR_INVALID_BLOCKS": {"value": 21, "comment": "Invalid number of blocks supplied"},
+            "FSP_ERR_INVALID_ADDRESS": {"value": 22, "comment": "Invalid address supplied"},
+            "FSP_ERR_INVALID_SIZE": {"value": 23, "comment": "Invalid size/length supplied for operation"},
+            "FSP_ERR_WRITE_FAILED": {"value": 24, "comment": "Write operation failed"},
+            "FSP_ERR_ERASE_FAILED": {"value": 25, "comment": "Erase operation failed"},
+            "FSP_ERR_INVALID_CALL": {"value": 26, "comment": "Invalid function call is made"},
+            "FSP_ERR_INVALID_HW_CONDITION": {"value": 27, "comment": "Detected hardware is in invalid condition"},
+            "FSP_ERR_INVALID_FACTORY_FLASH": {"value": 28, "comment": "Factory flash is not available"},
+            "FSP_ERR_INVALID_STATE": {"value": 30, "comment": "API or command not valid in the current state"}
+        },
+        "uart_parity_t": {
+            "UART_PARITY_OFF": {"value": 0, "comment": "No parity"},
+            "UART_PARITY_EVEN": {"value": 2, "comment": "Even parity"},
+            "UART_PARITY_ODD": {"value": 1, "comment": "Odd parity"}
+        }
+    },
+    "structs": {
+        "R_PORT0_Type": {
+            "description": "RA I/O Ports (single port instance, 0x20-byte stride). PCNTRn registers; PODR/PDR/EIDR/PIDR etc. alias the upper/lower halves of PCNTR1/PCNTR2.",
+            "struct": {
+                "PCNTR1": {"type": "uint32_t", "comment": "0x00 Port Control Register 1 (PODR high half, PDR low half)"},
+                "PCNTR2": {"type": "uint32_t", "comment": "0x04 Port Control Register 2 (EIDR high half, PIDR low half)"},
+                "PCNTR3": {"type": "uint32_t", "comment": "0x08 Port Control Register 3 (PORR high half, POSR low half)"},
+                "PCNTR4": {"type": "uint32_t", "comment": "0x0C Port Control Register 4 (EORR high half, EOSR low half)"}
+            }
+        },
+        "R_SCI0_Type": {
+            "description": "Serial Communications Interface (UART/SPI/Simple-I2C capable). Non-FIFO register map modeled; FIFO-mode aliases (FTDR/FRDR/FDR/etc.) overlap this map and are not represented.",
+            "struct": {
+                "SMR": {"type": "uint8_t", "comment": "0x00 Serial Mode Register (non-smart-card)"},
+                "BRR": {"type": "uint8_t", "comment": "0x01 Bit Rate Register"},
+                "SCR": {"type": "uint8_t", "comment": "0x02 Serial Control Register (non-smart-card)"},
+                "TDR": {"type": "uint8_t", "comment": "0x03 Transmit Data Register"},
+                "SSR": {"type": "uint8_t", "comment": "0x04 Serial Status Register (non-FIFO/non-smart-card)"},
+                "RDR": {"type": "uint8_t", "comment": "0x05 Receive Data Register"},
+                "SCMR": {"type": "uint8_t", "comment": "0x06 Smart Card Mode Register"},
+                "SEMR": {"type": "uint8_t", "comment": "0x07 Serial Extended Mode Register"},
+                "SNFR": {"type": "uint8_t", "comment": "0x08 Noise Filter Setting Register"},
+                "SIMR1": {"type": "uint8_t", "comment": "0x09 IIC Mode Register 1"},
+                "SIMR2": {"type": "uint8_t", "comment": "0x0A IIC Mode Register 2"},
+                "SIMR3": {"type": "uint8_t", "comment": "0x0B IIC Mode Register 3"},
+                "SISR": {"type": "uint8_t", "comment": "0x0C IIC Status Register"},
+                "SPMR": {"type": "uint8_t", "comment": "0x0D SPI Mode Register"},
+                "TDRHL": {"type": "uint16_t", "comment": "0x0E Transmit 9-bit Data Register (TDRH/TDRL)"},
+                "RDRHL": {"type": "uint16_t", "comment": "0x10 Receive 9-bit Data Register (RDRH/RDRL)"},
+                "MDDR": {"type": "uint8_t", "comment": "0x12 Modulation Duty Register"},
+                "RESERVED0": {"type": "uint8_t[13]", "comment": "0x13 reserved up to next FIFO/extended block"}
+            }
+        },
+        "R_GPT0_Type": {
+            "description": "General PWM Timer (GPT) single channel. Confident head modeled in offset order with reserved padding; trailing channel-specific registers omitted.",
+            "struct": {
+                "GTWP": {"type": "uint32_t", "comment": "0x00 General PWM Timer Write-Protection Register"},
+                "GTSTR": {"type": "uint32_t", "comment": "0x04 General PWM Timer Software Start Register"},
+                "GTSTP": {"type": "uint32_t", "comment": "0x08 General PWM Timer Software Stop Register"},
+                "GTCLR": {"type": "uint32_t", "comment": "0x0C General PWM Timer Software Clear Register"},
+                "GTSSR": {"type": "uint32_t", "comment": "0x10 General PWM Timer Start Source Select Register"},
+                "GTPSR": {"type": "uint32_t", "comment": "0x14 General PWM Timer Stop Source Select Register"},
+                "GTCSR": {"type": "uint32_t", "comment": "0x18 General PWM Timer Clear Source Select Register"},
+                "GTUPSR": {"type": "uint32_t", "comment": "0x1C General PWM Timer Up Count Source Select Register"},
+                "GTDNSR": {"type": "uint32_t", "comment": "0x20 General PWM Timer Down Count Source Select Register"},
+                "GTICASR": {"type": "uint32_t", "comment": "0x24 General PWM Timer Input Capture Source Select Register A"},
+                "GTICBSR": {"type": "uint32_t", "comment": "0x28 General PWM Timer Input Capture Source Select Register B"},
+                "GTCR": {"type": "uint32_t", "comment": "0x2C General PWM Timer Control Register"},
+                "GTUDDTYC": {"type": "uint32_t", "comment": "0x30 General PWM Timer Count Direction and Duty Setting Register"},
+                "GTIOR": {"type": "uint32_t", "comment": "0x34 General PWM Timer I/O Control Register"},
+                "GTINTAD": {"type": "uint32_t", "comment": "0x38 General PWM Timer Interrupt Output Setting Register"},
+                "GTST": {"type": "uint32_t", "comment": "0x3C General PWM Timer Status Register"},
+                "GTBER": {"type": "uint32_t", "comment": "0x40 General PWM Timer Buffer Enable Register"},
+                "GTITC": {"type": "uint32_t", "comment": "0x44 General PWM Timer Interrupt and A/D Conversion Start Request Skipping Setting Register"},
+                "GTCNT": {"type": "uint32_t", "comment": "0x48 General PWM Timer Counter"},
+                "GTCCR": {"type": "uint32_t[6]", "comment": "0x4C General PWM Timer Compare Capture Register A-F"},
+                "GTPR": {"type": "uint32_t", "comment": "0x64 General PWM Timer Cycle Setting Register"},
+                "GTPBR": {"type": "uint32_t", "comment": "0x68 General PWM Timer Cycle Setting Buffer Register"}
+            }
+        },
+        "R_AGT0_Type": {
+            "description": "Asynchronous General Purpose Timer (AGT) single channel. AGT16/AGTW share this layout; lower halves modeled.",
+            "struct": {
+                "AGT": {"type": "uint16_t", "comment": "0x00 AGT Counter Register"},
+                "AGTCMA": {"type": "uint16_t", "comment": "0x02 AGT Compare Match A Register"},
+                "AGTCMB": {"type": "uint16_t", "comment": "0x04 AGT Compare Match B Register"},
+                "RESERVED0": {"type": "uint8_t[2]", "comment": "0x06 reserved"},
+                "AGTCR": {"type": "uint8_t", "comment": "0x08 AGT Control Register"},
+                "AGTMR1": {"type": "uint8_t", "comment": "0x09 AGT Mode Register 1"},
+                "AGTMR2": {"type": "uint8_t", "comment": "0x0A AGT Mode Register 2"},
+                "RESERVED1": {"type": "uint8_t", "comment": "0x0B reserved"},
+                "AGTIOC": {"type": "uint8_t", "comment": "0x0C AGT I/O Control Register"},
+                "AGTISR": {"type": "uint8_t", "comment": "0x0D AGT Event Pin Select Register"},
+                "AGTCMSR": {"type": "uint8_t", "comment": "0x0E AGT Compare Match Function Select Register"},
+                "AGTIOSEL": {"type": "uint8_t", "comment": "0x0F AGT Pin Select Register"}
+            }
+        },
+        "R_ICU_Type": {
+            "description": "Interrupt Controller Unit (ICU). IRQCR per external IRQ, NMI registers, then IELSR event-link table.",
+            "struct": {
+                "IRQCR": {"type": "uint8_t[16]", "comment": "0x00 IRQ Control Register (one per external IRQ0-15)"},
+                "RESERVED0": {"type": "uint8_t[16]", "comment": "0x10 reserved"},
+                "NMICR": {"type": "uint8_t", "comment": "0x20 Non-Maskable Interrupt Status Control Register"},
+                "RESERVED1": {"type": "uint8_t[15]", "comment": "0x21 reserved"},
+                "NMIER": {"type": "uint16_t", "comment": "0x30 Non-Maskable Interrupt Enable Register"},
+                "RESERVED2": {"type": "uint8_t[6]", "comment": "0x32 reserved"},
+                "NMICLR": {"type": "uint16_t", "comment": "0x38 Non-Maskable Interrupt Status Clear Register"},
+                "RESERVED3": {"type": "uint8_t[6]", "comment": "0x3A reserved"},
+                "NMISR": {"type": "uint16_t", "comment": "0x40 Non-Maskable Interrupt Status Register"},
+                "RESERVED4": {"type": "uint8_t[14]", "comment": "0x42 reserved"},
+                "WUPEN": {"type": "uint32_t", "comment": "0x50 Wake Up Interrupt Enable Register"},
+                "RESERVED5": {"type": "uint8_t[44]", "comment": "0x54 reserved up to IELSR table"},
+                "IELSR": {"type": "uint32_t[96]", "comment": "0x80 ICU Event Link Setting Register (array; entry count is device-dependent, 96 typical for RA6M)"}
+            }
+        },
+        "R_SYSTEM_Type": {
+            "description": "System control (clock generation, resets, low power). Partial offset-correct model of the clock-control head; many registers omitted (protected by PRCR).",
+            "struct": {
+                "SCKDIVCR": {"type": "uint32_t", "comment": "0x00 System Clock Division Control Register"},
+                "RESERVED0": {"type": "uint8_t[4]", "comment": "0x04 reserved"},
+                "SCKSCR": {"type": "uint8_t", "comment": "0x08 System Clock Source Control Register"},
+                "RESERVED1": {"type": "uint8_t", "comment": "0x09 reserved"},
+                "PLLCR": {"type": "uint8_t", "comment": "0x0A PLL Control Register"},
+                "RESERVED2": {"type": "uint8_t", "comment": "0x0B reserved"},
+                "PLLCCR2": {"type": "uint8_t", "comment": "0x0C PLL Clock Control Register 2"},
+                "RESERVED3": {"type": "uint8_t[3]", "comment": "0x0D reserved"},
+                "MEMWAIT": {"type": "uint8_t", "comment": "0x10 Memory Wait Cycle Control Register"},
+                "RESERVED4": {"type": "uint8_t[19]", "comment": "0x11 reserved"},
+                "MOSCCR": {"type": "uint8_t", "comment": "0x24 Main Clock Oscillator Control Register"},
+                "RESERVED5": {"type": "uint8_t", "comment": "0x25 reserved"},
+                "HOCOCR": {"type": "uint8_t", "comment": "0x26 High-Speed On-Chip Oscillator Control Register"},
+                "RESERVED6": {"type": "uint8_t", "comment": "0x27 reserved"},
+                "MOCOCR": {"type": "uint8_t", "comment": "0x28 Middle-Speed On-Chip Oscillator Control Register"},
+                "RESERVED7": {"type": "uint8_t", "comment": "0x29 reserved"},
+                "LOCOCR": {"type": "uint8_t", "comment": "0x2A Low-Speed On-Chip Oscillator Control Register"},
+                "RESERVED8": {"type": "uint8_t", "comment": "0x2B reserved"},
+                "OSCSF": {"type": "uint8_t", "comment": "0x2C Oscillation Stabilization Flag Register"}
+            }
+        },
+        "R_DTC_Type": {
+            "description": "Data Transfer Controller (DTC). Compact register block.",
+            "struct": {
+                "DTCCR": {"type": "uint8_t", "comment": "0x00 DTC Control Register"},
+                "RESERVED0": {"type": "uint8_t[3]", "comment": "0x01 reserved"},
+                "DTCVBR": {"type": "uint32_t", "comment": "0x04 DTC Vector Base Register"},
+                "RESERVED1": {"type": "uint8_t", "comment": "0x08 reserved"},
+                "DTCST": {"type": "uint8_t", "comment": "0x09 DTC Module Start Register"},
+                "DTCSTS": {"type": "uint16_t", "comment": "0x0A DTC Status Register"}
+            }
+        },
+        "R_DMAC0_Type": {
+            "description": "DMA Controller (DMAC) single channel. Per-channel register block in offset order with reserved padding.",
+            "struct": {
+                "DMSAR": {"type": "uint32_t", "comment": "0x00 DMA Source Address Register"},
+                "DMDAR": {"type": "uint32_t", "comment": "0x04 DMA Destination Address Register"},
+                "DMCRA": {"type": "uint32_t", "comment": "0x08 DMA Transfer Count Register"},
+                "DMCRB": {"type": "uint16_t", "comment": "0x0C DMA Block Transfer Count Register"},
+                "RESERVED0": {"type": "uint8_t[2]", "comment": "0x0E reserved"},
+                "DMTMD": {"type": "uint16_t", "comment": "0x10 DMA Transfer Mode Register"},
+                "RESERVED1": {"type": "uint8_t", "comment": "0x12 reserved"},
+                "DMINT": {"type": "uint8_t", "comment": "0x13 DMA Interrupt Setting Register"},
+                "DMAMD": {"type": "uint16_t", "comment": "0x14 DMA Address Mode Register"},
+                "RESERVED2": {"type": "uint8_t[2]", "comment": "0x16 reserved"},
+                "DMOFR": {"type": "uint32_t", "comment": "0x18 DMA Offset Register"},
+                "DMCNT": {"type": "uint8_t", "comment": "0x1C DMA Transfer Enable Register"},
+                "RESERVED3": {"type": "uint8_t[3]", "comment": "0x1D reserved"},
+                "DMREQ": {"type": "uint8_t", "comment": "0x20 DMA Software Start Register"},
+                "RESERVED4": {"type": "uint8_t[3]", "comment": "0x21 reserved"},
+                "DMSTS": {"type": "uint8_t", "comment": "0x24 DMA Status Register"}
+            }
+        },
+        "R_IIC0_Type": {
+            "description": "I2C Bus Interface (IIC). Register block in offset order with reserved padding.",
+            "struct": {
+                "ICCR1": {"type": "uint8_t", "comment": "0x00 I2C Bus Control Register 1"},
+                "ICCR2": {"type": "uint8_t", "comment": "0x01 I2C Bus Control Register 2"},
+                "ICMR1": {"type": "uint8_t", "comment": "0x02 I2C Bus Mode Register 1"},
+                "ICMR2": {"type": "uint8_t", "comment": "0x03 I2C Bus Mode Register 2"},
+                "ICMR3": {"type": "uint8_t", "comment": "0x04 I2C Bus Mode Register 3"},
+                "ICFER": {"type": "uint8_t", "comment": "0x05 I2C Bus Function Enable Register"},
+                "ICSER": {"type": "uint8_t", "comment": "0x06 I2C Bus Status Enable Register"},
+                "ICIER": {"type": "uint8_t", "comment": "0x07 I2C Bus Interrupt Enable Register"},
+                "ICSR1": {"type": "uint8_t", "comment": "0x08 I2C Bus Status Register 1"},
+                "ICSR2": {"type": "uint8_t", "comment": "0x09 I2C Bus Status Register 2"},
+                "ICSAR0": {"type": "uint8_t", "comment": "0x0A Slave Address Register L0"},
+                "RESERVED0": {"type": "uint8_t[5]", "comment": "0x0B reserved (additional slave-address register pairs)"},
+                "ICBRL": {"type": "uint8_t", "comment": "0x10 I2C Bus Bit Rate Low-Level Register"},
+                "ICBRH": {"type": "uint8_t", "comment": "0x11 I2C Bus Bit Rate High-Level Register"},
+                "ICDRT": {"type": "uint8_t", "comment": "0x12 I2C Bus Transmit Data Register"},
+                "ICDRR": {"type": "uint8_t", "comment": "0x13 I2C Bus Receive Data Register"}
+            }
+        },
+        "R_SPI0_Type": {
+            "description": "Serial Peripheral Interface (SPI / RSPI). Register block in offset order with reserved padding.",
+            "struct": {
+                "SPCR": {"type": "uint8_t", "comment": "0x00 SPI Control Register"},
+                "SSLP": {"type": "uint8_t", "comment": "0x01 SPI Slave Select Polarity Register"},
+                "SPPCR": {"type": "uint8_t", "comment": "0x02 SPI Pin Control Register"},
+                "SPSR": {"type": "uint8_t", "comment": "0x03 SPI Status Register"},
+                "SPDR": {"type": "uint32_t", "comment": "0x04 SPI Data Register (SPDR/SPDR_HA union)"},
+                "SPSCR": {"type": "uint8_t", "comment": "0x08 SPI Sequence Control Register"},
+                "SPSSR": {"type": "uint8_t", "comment": "0x09 SPI Sequence Status Register"},
+                "SPBR": {"type": "uint8_t", "comment": "0x0A SPI Bit Rate Register"},
+                "SPDCR": {"type": "uint8_t", "comment": "0x0B SPI Data Control Register"},
+                "SPCKD": {"type": "uint8_t", "comment": "0x0C SPI Clock Delay Register"},
+                "SSLND": {"type": "uint8_t", "comment": "0x0D SPI Slave Select Negation Delay Register"},
+                "SPND": {"type": "uint8_t", "comment": "0x0E SPI Next-Access Delay Register"},
+                "SPCR2": {"type": "uint8_t", "comment": "0x0F SPI Control Register 2"},
+                "SPCMD": {"type": "uint16_t[8]", "comment": "0x10 SPI Command Register 0-7"}
+            }
+        },
+        "uart_cfg_t": {
+            "description": "FSP UART interface configuration (uart_api.h). Pointer widths are 32-bit (Cortex-M). Field order matches the FSP struct.",
+            "struct": {
+                "channel": {"type": "uint8_t", "comment": "Channel"},
+                "data_bits": {"type": "int", "comment": "uart_data_bits_t Data bit length"},
+                "parity": {"type": "int", "comment": "uart_parity_t Parity type"},
+                "stop_bits": {"type": "int", "comment": "uart_stop_bits_t Stop bits"},
+                "rxi_irq": {"type": "int", "comment": "IRQ_t Receive IRQ number"},
+                "txi_irq": {"type": "int", "comment": "IRQ_t Transmit IRQ number"},
+                "tei_irq": {"type": "int", "comment": "IRQ_t Transmit-end IRQ number"},
+                "eri_irq": {"type": "int", "comment": "IRQ_t Receive-error IRQ number"},
+                "rxi_ipl": {"type": "uint8_t", "comment": "Receive interrupt priority"},
+                "txi_ipl": {"type": "uint8_t", "comment": "Transmit interrupt priority"},
+                "tei_ipl": {"type": "uint8_t", "comment": "Transmit-end interrupt priority"},
+                "eri_ipl": {"type": "uint8_t", "comment": "Receive-error interrupt priority"},
+                "p_callback": {"type": "void *", "comment": "Pointer to callback function (void(*)(uart_callback_args_t*))"},
+                "p_context": {"type": "void *", "comment": "User-defined context passed to callback"},
+                "p_extend": {"type": "void *", "comment": "Pointer to peripheral-specific extended configuration"}
+            }
+        },
+        "spi_cfg_t": {
+            "description": "FSP SPI interface configuration (spi_api.h). Pointer widths are 32-bit (Cortex-M). Field order matches the FSP struct.",
+            "struct": {
+                "channel": {"type": "uint8_t", "comment": "Channel"},
+                "rxi_irq": {"type": "int", "comment": "IRQ_t Receive buffer full IRQ number"},
+                "txi_irq": {"type": "int", "comment": "IRQ_t Transmit buffer empty IRQ number"},
+                "tei_irq": {"type": "int", "comment": "IRQ_t Transfer-end IRQ number"},
+                "eri_irq": {"type": "int", "comment": "IRQ_t Error IRQ number"},
+                "rxi_ipl": {"type": "uint8_t", "comment": "Receive interrupt priority"},
+                "txi_ipl": {"type": "uint8_t", "comment": "Transmit interrupt priority"},
+                "tei_ipl": {"type": "uint8_t", "comment": "Transfer-end interrupt priority"},
+                "eri_ipl": {"type": "uint8_t", "comment": "Error interrupt priority"},
+                "operating_mode": {"type": "int", "comment": "spi_mode_t Master or slave mode"},
+                "clk_phase": {"type": "int", "comment": "spi_clk_phase_t Clock phase"},
+                "clk_polarity": {"type": "int", "comment": "spi_clk_polarity_t Clock polarity"},
+                "mode_fault": {"type": "int", "comment": "spi_mode_fault_t Mode fault error detection"},
+                "bit_order": {"type": "int", "comment": "spi_bit_order_t MSB/LSB first"},
+                "p_transfer_tx": {"type": "void *", "comment": "Pointer to TX transfer instance (DTC/DMAC)"},
+                "p_transfer_rx": {"type": "void *", "comment": "Pointer to RX transfer instance (DTC/DMAC)"},
+                "p_callback": {"type": "void *", "comment": "Pointer to callback function"},
+                "p_context": {"type": "void *", "comment": "User-defined context passed to callback"},
+                "p_extend": {"type": "void *", "comment": "Pointer to peripheral-specific extended configuration"}
+            }
+        },
+        "i2c_master_cfg_t": {
+            "description": "FSP I2C master interface configuration (i2c_master_api.h). Pointer widths are 32-bit (Cortex-M). Field order matches the FSP struct.",
+            "struct": {
+                "channel": {"type": "uint8_t", "comment": "Channel"},
+                "rate": {"type": "int", "comment": "i2c_master_rate_t Bus rate (standard/fast/fast-plus)"},
+                "slave": {"type": "uint16_t", "comment": "Slave address"},
+                "addr_mode": {"type": "int", "comment": "i2c_master_addr_mode_t 7-bit or 10-bit addressing"},
+                "ipl": {"type": "uint8_t", "comment": "Interrupt priority level (non-DMAC interrupts)"},
+                "eri_ipl": {"type": "uint8_t", "comment": "Error interrupt priority"},
+                "rxi_irq": {"type": "int", "comment": "IRQ_t Receive IRQ number"},
+                "txi_irq": {"type": "int", "comment": "IRQ_t Transmit IRQ number"},
+                "tei_irq": {"type": "int", "comment": "IRQ_t Transmit-end IRQ number"},
+                "eri_irq": {"type": "int", "comment": "IRQ_t Error IRQ number"},
+                "p_transfer_tx": {"type": "void *", "comment": "Pointer to TX transfer instance (DTC/DMAC)"},
+                "p_transfer_rx": {"type": "void *", "comment": "Pointer to RX transfer instance (DTC/DMAC)"},
+                "p_callback": {"type": "void *", "comment": "Pointer to callback function"},
+                "p_context": {"type": "void *", "comment": "User-defined context passed to callback"},
+                "p_extend": {"type": "void *", "comment": "Pointer to peripheral-specific extended configuration"}
+            }
+        }
+    }
+}

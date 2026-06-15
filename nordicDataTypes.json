@@ -1,0 +1,1328 @@
+{
+    "enums": {
+        "nrfx_err_t": {
+            "NRFX_SUCCESS": {
+                "value": 0,
+                "comment": "Operation performed successfully. Base is (NRFX_ERROR_BASE_NUM=0x0BAD0000); SUCCESS is plain 0"
+            },
+            "NRFX_ERROR_INTERNAL": {
+                "value": 195887105,
+                "comment": "0x0BAD0000 + 1 - Internal error"
+            },
+            "NRFX_ERROR_NO_MEM": {
+                "value": 195887106,
+                "comment": "0x0BAD0000 + 2 - No memory for operation"
+            },
+            "NRFX_ERROR_NOT_SUPPORTED": {
+                "value": 195887107,
+                "comment": "0x0BAD0000 + 3 - Not supported"
+            },
+            "NRFX_ERROR_INVALID_PARAM": {
+                "value": 195887108,
+                "comment": "0x0BAD0000 + 4 - Invalid parameter"
+            },
+            "NRFX_ERROR_INVALID_STATE": {
+                "value": 195887109,
+                "comment": "0x0BAD0000 + 5 - Invalid state, operation disallowed in this state"
+            },
+            "NRFX_ERROR_INVALID_LENGTH": {
+                "value": 195887110,
+                "comment": "0x0BAD0000 + 6 - Invalid length"
+            },
+            "NRFX_ERROR_TIMEOUT": {
+                "value": 195887111,
+                "comment": "0x0BAD0000 + 7 - Operation timed out"
+            },
+            "NRFX_ERROR_FORBIDDEN": {
+                "value": 195887112,
+                "comment": "0x0BAD0000 + 8 - Operation is forbidden"
+            },
+            "NRFX_ERROR_NULL": {
+                "value": 195887113,
+                "comment": "0x0BAD0000 + 9 - Null pointer"
+            },
+            "NRFX_ERROR_INVALID_ADDR": {
+                "value": 195887114,
+                "comment": "0x0BAD0000 + 10 - Bad memory address"
+            },
+            "NRFX_ERROR_BUSY": {
+                "value": 195887115,
+                "comment": "0x0BAD0000 + 11 - Busy"
+            },
+            "NRFX_ERROR_ALREADY_INITIALIZED": {
+                "value": 195887116,
+                "comment": "0x0BAD0000 + 12 - Module already initialized"
+            },
+            "NRFX_ERROR_DRV_TWI_ERR_OVERRUN": {
+                "value": 196018177,
+                "comment": "0x0BAD0000 + (0x0200 base) + 0 - TWI overrun"
+            },
+            "NRFX_ERROR_DRV_TWI_ERR_ANACK": {
+                "value": 196018178,
+                "comment": "0x0BAD0000 + 0x0201 - TWI address NACK"
+            },
+            "NRFX_ERROR_DRV_TWI_ERR_DNACK": {
+                "value": 196018179,
+                "comment": "0x0BAD0000 + 0x0202 - TWI data NACK"
+            }
+        },
+        "nrf_gpio_pin_dir_t": {
+            "NRF_GPIO_PIN_DIR_INPUT": {
+                "value": 0,
+                "comment": "GPIO_PIN_CNF_DIR_Input - Pin set as input"
+            },
+            "NRF_GPIO_PIN_DIR_OUTPUT": {
+                "value": 1,
+                "comment": "GPIO_PIN_CNF_DIR_Output - Pin set as output"
+            }
+        },
+        "nrf_gpio_pin_pull_t": {
+            "NRF_GPIO_PIN_NOPULL": {
+                "value": 0,
+                "comment": "GPIO_PIN_CNF_PULL_Disabled - No pull"
+            },
+            "NRF_GPIO_PIN_PULLDOWN": {
+                "value": 1,
+                "comment": "GPIO_PIN_CNF_PULL_Pulldown - Pull down on pin"
+            },
+            "NRF_GPIO_PIN_PULLUP": {
+                "value": 3,
+                "comment": "GPIO_PIN_CNF_PULL_Pullup - Pull up on pin"
+            }
+        }
+    },
+    "structs": {
+        "NRF_GPIO_Type": {
+            "description": "GPIO Port (P0/P1). Famous 0x504 OUT offset reproduced via leading RESERVED array.",
+            "struct": {
+                "RESERVED0": {
+                    "type": "uint32_t[321]",
+                    "comment": "0x000-0x500 reserved (321 words) to place OUT at 0x504"
+                },
+                "OUT": {
+                    "type": "uint32_t",
+                    "comment": "0x504 Write GPIO port"
+                },
+                "OUTSET": {
+                    "type": "uint32_t",
+                    "comment": "0x508 Set individual bits in GPIO port"
+                },
+                "OUTCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x50C Clear individual bits in GPIO port"
+                },
+                "IN": {
+                    "type": "uint32_t",
+                    "comment": "0x510 Read GPIO port"
+                },
+                "DIR": {
+                    "type": "uint32_t",
+                    "comment": "0x514 Direction of GPIO pins"
+                },
+                "DIRSET": {
+                    "type": "uint32_t",
+                    "comment": "0x518 DIR set register"
+                },
+                "DIRCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x51C DIR clear register"
+                },
+                "LATCH": {
+                    "type": "uint32_t",
+                    "comment": "0x520 Latch register for PIN_CNF[n].SENSE detections"
+                },
+                "DETECTMODE": {
+                    "type": "uint32_t",
+                    "comment": "0x524 Select between default DETECT and LDETECT behaviour"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t[118]",
+                    "comment": "0x528-0x6FC reserved (118 words) to place PIN_CNF at 0x700"
+                },
+                "PIN_CNF": {
+                    "type": "uint32_t[32]",
+                    "comment": "0x700 Configuration of GPIO pins (one word per pin)"
+                }
+            }
+        },
+        "NRF_UARTE_Type": {
+            "description": "UART with EasyDMA (UARTE0/UARTE1). TASKS/EVENTS layout with offset-preserving RESERVED arrays.",
+            "struct": {
+                "TASKS_STARTRX": {
+                    "type": "uint32_t",
+                    "comment": "0x000 Start UART receiver"
+                },
+                "TASKS_STOPRX": {
+                    "type": "uint32_t",
+                    "comment": "0x004 Stop UART receiver"
+                },
+                "TASKS_STARTTX": {
+                    "type": "uint32_t",
+                    "comment": "0x008 Start UART transmitter"
+                },
+                "TASKS_STOPTX": {
+                    "type": "uint32_t",
+                    "comment": "0x00C Stop UART transmitter"
+                },
+                "RESERVED0": {
+                    "type": "uint32_t[7]",
+                    "comment": "0x010-0x02B reserved (7 words)"
+                },
+                "TASKS_FLUSHRX": {
+                    "type": "uint32_t",
+                    "comment": "0x02C Flush RX FIFO into RX buffer"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t[52]",
+                    "comment": "0x030-0x0FF reserved (52 words) to reach EVENTS_CTS at 0x100"
+                },
+                "EVENTS_CTS": {
+                    "type": "uint32_t",
+                    "comment": "0x100 CTS is activated (set low)"
+                },
+                "EVENTS_NCTS": {
+                    "type": "uint32_t",
+                    "comment": "0x104 CTS is deactivated (set high)"
+                },
+                "EVENTS_RXDRDY": {
+                    "type": "uint32_t",
+                    "comment": "0x108 Data received in RXD (but not transferred to RAM yet)"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t",
+                    "comment": "0x10C reserved (1 word)"
+                },
+                "EVENTS_ENDRX": {
+                    "type": "uint32_t",
+                    "comment": "0x110 Receive buffer is filled up"
+                },
+                "RESERVED3": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x114-0x11B reserved (2 words)"
+                },
+                "EVENTS_TXDRDY": {
+                    "type": "uint32_t",
+                    "comment": "0x11C Data sent from TXD"
+                },
+                "EVENTS_ENDTX": {
+                    "type": "uint32_t",
+                    "comment": "0x120 Last TX byte transmitted"
+                },
+                "EVENTS_ERROR": {
+                    "type": "uint32_t",
+                    "comment": "0x124 Error detected"
+                },
+                "RESERVED4": {
+                    "type": "uint32_t[7]",
+                    "comment": "0x128-0x143 reserved (7 words)"
+                },
+                "EVENTS_RXTO": {
+                    "type": "uint32_t",
+                    "comment": "0x144 Receiver timeout"
+                },
+                "RESERVED5": {
+                    "type": "uint32_t",
+                    "comment": "0x148 reserved (1 word)"
+                },
+                "EVENTS_RXSTARTED": {
+                    "type": "uint32_t",
+                    "comment": "0x14C UARTE has started to receive data"
+                },
+                "EVENTS_TXSTARTED": {
+                    "type": "uint32_t",
+                    "comment": "0x150 UARTE has started to transmit data"
+                },
+                "RESERVED6": {
+                    "type": "uint32_t",
+                    "comment": "0x154 reserved (1 word)"
+                },
+                "EVENTS_TXSTOPPED": {
+                    "type": "uint32_t",
+                    "comment": "0x158 Transmitter stopped"
+                },
+                "RESERVED7": {
+                    "type": "uint32_t[41]",
+                    "comment": "0x15C-0x1FF reserved (41 words) to reach SHORTS at 0x200"
+                },
+                "SHORTS": {
+                    "type": "uint32_t",
+                    "comment": "0x200 Shortcuts between local events and tasks"
+                },
+                "RESERVED8": {
+                    "type": "uint32_t[63]",
+                    "comment": "0x204-0x2FF reserved (63 words) to reach INTEN at 0x300"
+                },
+                "INTEN": {
+                    "type": "uint32_t",
+                    "comment": "0x300 Enable or disable interrupt"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x304 Enable interrupt"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x308 Disable interrupt"
+                },
+                "RESERVED9": {
+                    "type": "uint32_t[93]",
+                    "comment": "0x30C-0x47F reserved (93 words) to reach ERRORSRC at 0x480"
+                },
+                "ERRORSRC": {
+                    "type": "uint32_t",
+                    "comment": "0x480 Error source. Write to clear."
+                },
+                "RESERVED10": {
+                    "type": "uint32_t[31]",
+                    "comment": "0x484-0x4FF reserved (31 words) to reach ENABLE at 0x500"
+                },
+                "ENABLE": {
+                    "type": "uint32_t",
+                    "comment": "0x500 Enable UART"
+                },
+                "RESERVED11": {
+                    "type": "uint32_t",
+                    "comment": "0x504 reserved (1 word)"
+                },
+                "PSEL_RTS": {
+                    "type": "uint32_t",
+                    "comment": "0x508 Pin select for RTS signal (PSEL.RTS)"
+                },
+                "PSEL_TXD": {
+                    "type": "uint32_t",
+                    "comment": "0x50C Pin select for TXD signal (PSEL.TXD)"
+                },
+                "PSEL_CTS": {
+                    "type": "uint32_t",
+                    "comment": "0x510 Pin select for CTS signal (PSEL.CTS)"
+                },
+                "PSEL_RXD": {
+                    "type": "uint32_t",
+                    "comment": "0x514 Pin select for RXD signal (PSEL.RXD)"
+                },
+                "RESERVED12": {
+                    "type": "uint32_t[3]",
+                    "comment": "0x518-0x523 reserved (3 words) to reach BAUDRATE at 0x524"
+                },
+                "BAUDRATE": {
+                    "type": "uint32_t",
+                    "comment": "0x524 Baud rate. Accuracy depends on HFCLK source selected."
+                },
+                "RESERVED13": {
+                    "type": "uint32_t[3]",
+                    "comment": "0x528-0x533 reserved (3 words) to reach RXD.PTR at 0x534"
+                },
+                "RXD_PTR": {
+                    "type": "uint32_t",
+                    "comment": "0x534 Data pointer (RXD.PTR)"
+                },
+                "RXD_MAXCNT": {
+                    "type": "uint32_t",
+                    "comment": "0x538 Maximum number of bytes in receive buffer (RXD.MAXCNT)"
+                },
+                "RXD_AMOUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x53C Number of bytes transferred in last transaction (RXD.AMOUNT)"
+                },
+                "RESERVED14": {
+                    "type": "uint32_t",
+                    "comment": "0x540 reserved (1 word) to reach TXD.PTR at 0x544"
+                },
+                "TXD_PTR": {
+                    "type": "uint32_t",
+                    "comment": "0x544 Data pointer (TXD.PTR)"
+                },
+                "TXD_MAXCNT": {
+                    "type": "uint32_t",
+                    "comment": "0x548 Maximum number of bytes in transmit buffer (TXD.MAXCNT)"
+                },
+                "TXD_AMOUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x54C Number of bytes transferred in last transaction (TXD.AMOUNT)"
+                },
+                "RESERVED15": {
+                    "type": "uint32_t[7]",
+                    "comment": "0x550-0x56B reserved (7 words) to reach CONFIG at 0x56C"
+                },
+                "CONFIG": {
+                    "type": "uint32_t",
+                    "comment": "0x56C Configuration of parity and hardware flow control"
+                }
+            }
+        },
+        "NRF_SPIM_Type": {
+            "description": "SPI master with EasyDMA (SPIM0/1/2/3). TASKS/EVENTS layout with offset-preserving RESERVED arrays.",
+            "struct": {
+                "RESERVED0": {
+                    "type": "uint32_t[4]",
+                    "comment": "0x000-0x00F reserved (4 words)"
+                },
+                "TASKS_START": {
+                    "type": "uint32_t",
+                    "comment": "0x010 Start SPI transaction"
+                },
+                "TASKS_STOP": {
+                    "type": "uint32_t",
+                    "comment": "0x014 Stop SPI transaction"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t",
+                    "comment": "0x018 reserved (1 word)"
+                },
+                "TASKS_SUSPEND": {
+                    "type": "uint32_t",
+                    "comment": "0x01C Suspend SPI transaction"
+                },
+                "TASKS_RESUME": {
+                    "type": "uint32_t",
+                    "comment": "0x020 Resume SPI transaction"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t[56]",
+                    "comment": "0x024-0x103 reserved (56 words) to reach EVENTS_STOPPED at 0x104"
+                },
+                "EVENTS_STOPPED": {
+                    "type": "uint32_t",
+                    "comment": "0x104 SPI transaction has stopped"
+                },
+                "RESERVED3": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x108-0x10F reserved (2 words)"
+                },
+                "EVENTS_ENDRX": {
+                    "type": "uint32_t",
+                    "comment": "0x110 End of RXD buffer reached"
+                },
+                "RESERVED4": {
+                    "type": "uint32_t",
+                    "comment": "0x114 reserved (1 word)"
+                },
+                "EVENTS_END": {
+                    "type": "uint32_t",
+                    "comment": "0x118 End of RXD buffer and TXD buffer reached"
+                },
+                "RESERVED5": {
+                    "type": "uint32_t",
+                    "comment": "0x11C reserved (1 word)"
+                },
+                "EVENTS_ENDTX": {
+                    "type": "uint32_t",
+                    "comment": "0x120 End of TXD buffer reached"
+                },
+                "RESERVED6": {
+                    "type": "uint32_t[10]",
+                    "comment": "0x124-0x14B reserved (10 words) to reach EVENTS_STARTED at 0x14C"
+                },
+                "EVENTS_STARTED": {
+                    "type": "uint32_t",
+                    "comment": "0x14C Transaction started"
+                },
+                "RESERVED7": {
+                    "type": "uint32_t[44]",
+                    "comment": "0x150-0x1FF reserved (44 words) to reach SHORTS at 0x200"
+                },
+                "SHORTS": {
+                    "type": "uint32_t",
+                    "comment": "0x200 Shortcuts between local events and tasks"
+                },
+                "RESERVED8": {
+                    "type": "uint32_t[64]",
+                    "comment": "0x204-0x303 reserved (64 words) to reach INTENSET at 0x304"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x304 Enable interrupt"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x308 Disable interrupt"
+                },
+                "RESERVED9": {
+                    "type": "uint32_t[125]",
+                    "comment": "0x30C-0x4FF reserved (125 words) to reach ENABLE at 0x500"
+                },
+                "ENABLE": {
+                    "type": "uint32_t",
+                    "comment": "0x500 Enable SPIM"
+                },
+                "RESERVED10": {
+                    "type": "uint32_t",
+                    "comment": "0x504 reserved (1 word)"
+                },
+                "PSEL_SCK": {
+                    "type": "uint32_t",
+                    "comment": "0x508 Pin select for SCK (PSEL.SCK)"
+                },
+                "PSEL_MOSI": {
+                    "type": "uint32_t",
+                    "comment": "0x50C Pin select for MOSI signal (PSEL.MOSI)"
+                },
+                "PSEL_MISO": {
+                    "type": "uint32_t",
+                    "comment": "0x510 Pin select for MISO signal (PSEL.MISO)"
+                },
+                "PSEL_CSN": {
+                    "type": "uint32_t",
+                    "comment": "0x514 Pin select for CSN (PSEL.CSN)"
+                },
+                "RESERVED11": {
+                    "type": "uint32_t[7]",
+                    "comment": "0x518-0x533 reserved (7 words) to reach FREQUENCY at 0x534"
+                },
+                "FREQUENCY": {
+                    "type": "uint32_t",
+                    "comment": "0x534 SPI frequency. Accuracy depends on HFCLK source selected."
+                },
+                "RESERVED12": {
+                    "type": "uint32_t[3]",
+                    "comment": "0x538-0x543 reserved (3 words) to reach RXD.PTR at 0x544"
+                },
+                "RXD_PTR": {
+                    "type": "uint32_t",
+                    "comment": "0x544 Data pointer (RXD.PTR)"
+                },
+                "RXD_MAXCNT": {
+                    "type": "uint32_t",
+                    "comment": "0x548 Maximum number of bytes in receive buffer (RXD.MAXCNT)"
+                },
+                "RXD_AMOUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x54C Number of bytes transferred in last transaction (RXD.AMOUNT)"
+                },
+                "RXD_LIST": {
+                    "type": "uint32_t",
+                    "comment": "0x550 EasyDMA list type (RXD.LIST)"
+                },
+                "TXD_PTR": {
+                    "type": "uint32_t",
+                    "comment": "0x554 Data pointer (TXD.PTR)"
+                },
+                "TXD_MAXCNT": {
+                    "type": "uint32_t",
+                    "comment": "0x558 Maximum number of bytes in transmit buffer (TXD.MAXCNT)"
+                },
+                "TXD_AMOUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x55C Number of bytes transferred in last transaction (TXD.AMOUNT)"
+                },
+                "TXD_LIST": {
+                    "type": "uint32_t",
+                    "comment": "0x560 EasyDMA list type (TXD.LIST)"
+                },
+                "CONFIG": {
+                    "type": "uint32_t",
+                    "comment": "0x564 Configuration register (CPHA/CPOL/bit order)"
+                }
+            }
+        },
+        "NRF_TWIM_Type": {
+            "description": "I2C master with EasyDMA (TWIM0/1). TASKS/EVENTS layout with offset-preserving RESERVED arrays.",
+            "struct": {
+                "TASKS_STARTRX": {
+                    "type": "uint32_t",
+                    "comment": "0x000 Start TWI receive sequence"
+                },
+                "RESERVED0": {
+                    "type": "uint32_t",
+                    "comment": "0x004 reserved (1 word)"
+                },
+                "TASKS_STARTTX": {
+                    "type": "uint32_t",
+                    "comment": "0x008 Start TWI transmit sequence"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x00C-0x013 reserved (2 words)"
+                },
+                "TASKS_STOP": {
+                    "type": "uint32_t",
+                    "comment": "0x014 Stop TWI transaction"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t",
+                    "comment": "0x018 reserved (1 word)"
+                },
+                "TASKS_SUSPEND": {
+                    "type": "uint32_t",
+                    "comment": "0x01C Suspend TWI transaction"
+                },
+                "TASKS_RESUME": {
+                    "type": "uint32_t",
+                    "comment": "0x020 Resume TWI transaction"
+                },
+                "RESERVED3": {
+                    "type": "uint32_t[56]",
+                    "comment": "0x024-0x103 reserved (56 words) to reach EVENTS_STOPPED at 0x104"
+                },
+                "EVENTS_STOPPED": {
+                    "type": "uint32_t",
+                    "comment": "0x104 TWI stopped"
+                },
+                "RESERVED4": {
+                    "type": "uint32_t[7]",
+                    "comment": "0x108-0x123 reserved (7 words) to reach EVENTS_ERROR at 0x124"
+                },
+                "EVENTS_ERROR": {
+                    "type": "uint32_t",
+                    "comment": "0x124 TWI error"
+                },
+                "RESERVED5": {
+                    "type": "uint32_t[8]",
+                    "comment": "0x128-0x147 reserved (8 words) to reach EVENTS_SUSPENDED at 0x148"
+                },
+                "EVENTS_SUSPENDED": {
+                    "type": "uint32_t",
+                    "comment": "0x148 Last byte has been sent out after the SUSPEND task"
+                },
+                "EVENTS_RXSTARTED": {
+                    "type": "uint32_t",
+                    "comment": "0x14C Receive sequence started"
+                },
+                "EVENTS_TXSTARTED": {
+                    "type": "uint32_t",
+                    "comment": "0x150 Transmit sequence started"
+                },
+                "RESERVED6": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x154-0x15B reserved (2 words)"
+                },
+                "EVENTS_LASTRX": {
+                    "type": "uint32_t",
+                    "comment": "0x15C Byte boundary, starting to receive the last byte"
+                },
+                "EVENTS_LASTTX": {
+                    "type": "uint32_t",
+                    "comment": "0x160 Byte boundary, starting to transmit the last byte"
+                },
+                "RESERVED7": {
+                    "type": "uint32_t[39]",
+                    "comment": "0x164-0x1FF reserved (39 words) to reach SHORTS at 0x200"
+                },
+                "SHORTS": {
+                    "type": "uint32_t",
+                    "comment": "0x200 Shortcuts between local events and tasks"
+                },
+                "RESERVED8": {
+                    "type": "uint32_t[63]",
+                    "comment": "0x204-0x2FF reserved (63 words) to reach INTEN at 0x300"
+                },
+                "INTEN": {
+                    "type": "uint32_t",
+                    "comment": "0x300 Enable or disable interrupt"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x304 Enable interrupt"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x308 Disable interrupt"
+                },
+                "RESERVED9": {
+                    "type": "uint32_t[110]",
+                    "comment": "0x30C-0x4C3 reserved (110 words) to reach ERRORSRC at 0x4C4"
+                },
+                "ERRORSRC": {
+                    "type": "uint32_t",
+                    "comment": "0x4C4 Error source. Write to clear."
+                },
+                "RESERVED10": {
+                    "type": "uint32_t[14]",
+                    "comment": "0x4C8-0x4FF reserved (14 words) to reach ENABLE at 0x500"
+                },
+                "ENABLE": {
+                    "type": "uint32_t",
+                    "comment": "0x500 Enable TWIM"
+                },
+                "RESERVED11": {
+                    "type": "uint32_t",
+                    "comment": "0x504 reserved (1 word)"
+                },
+                "PSEL_SCL": {
+                    "type": "uint32_t",
+                    "comment": "0x508 Pin select for SCL signal (PSEL.SCL)"
+                },
+                "PSEL_SDA": {
+                    "type": "uint32_t",
+                    "comment": "0x50C Pin select for SDA signal (PSEL.SDA)"
+                },
+                "RESERVED12": {
+                    "type": "uint32_t[5]",
+                    "comment": "0x510-0x523 reserved (5 words) to reach FREQUENCY at 0x524"
+                },
+                "FREQUENCY": {
+                    "type": "uint32_t",
+                    "comment": "0x524 TWI frequency"
+                },
+                "RESERVED13": {
+                    "type": "uint32_t[3]",
+                    "comment": "0x528-0x533 reserved (3 words) to reach RXD.PTR at 0x534"
+                },
+                "RXD_PTR": {
+                    "type": "uint32_t",
+                    "comment": "0x534 Data pointer (RXD.PTR)"
+                },
+                "RXD_MAXCNT": {
+                    "type": "uint32_t",
+                    "comment": "0x538 Maximum number of bytes in receive buffer (RXD.MAXCNT)"
+                },
+                "RXD_AMOUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x53C Number of bytes transferred in last transaction (RXD.AMOUNT)"
+                },
+                "RXD_LIST": {
+                    "type": "uint32_t",
+                    "comment": "0x540 EasyDMA list type (RXD.LIST)"
+                },
+                "TXD_PTR": {
+                    "type": "uint32_t",
+                    "comment": "0x544 Data pointer (TXD.PTR)"
+                },
+                "TXD_MAXCNT": {
+                    "type": "uint32_t",
+                    "comment": "0x548 Maximum number of bytes in transmit buffer (TXD.MAXCNT)"
+                },
+                "TXD_AMOUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x54C Number of bytes transferred in last transaction (TXD.AMOUNT)"
+                },
+                "TXD_LIST": {
+                    "type": "uint32_t",
+                    "comment": "0x550 EasyDMA list type (TXD.LIST)"
+                },
+                "RESERVED14": {
+                    "type": "uint32_t[13]",
+                    "comment": "0x554-0x587 reserved (13 words) to reach ADDRESS at 0x588"
+                },
+                "ADDRESS": {
+                    "type": "uint32_t",
+                    "comment": "0x588 Address used in the TWI transfer"
+                }
+            }
+        },
+        "NRF_TIMER_Type": {
+            "description": "Timer/Counter (TIMER0-4). TASKS/EVENTS layout with offset-preserving RESERVED arrays.",
+            "struct": {
+                "TASKS_START": {
+                    "type": "uint32_t",
+                    "comment": "0x000 Start Timer"
+                },
+                "TASKS_STOP": {
+                    "type": "uint32_t",
+                    "comment": "0x004 Stop Timer"
+                },
+                "TASKS_COUNT": {
+                    "type": "uint32_t",
+                    "comment": "0x008 Increment Timer (Counter mode only)"
+                },
+                "TASKS_CLEAR": {
+                    "type": "uint32_t",
+                    "comment": "0x00C Clear timer"
+                },
+                "TASKS_SHUTDOWN": {
+                    "type": "uint32_t",
+                    "comment": "0x010 Deprecated - Shut down timer"
+                },
+                "RESERVED0": {
+                    "type": "uint32_t[11]",
+                    "comment": "0x014-0x03F reserved (11 words) to reach TASKS_CAPTURE[0] at 0x040"
+                },
+                "TASKS_CAPTURE": {
+                    "type": "uint32_t[6]",
+                    "comment": "0x040 Capture Timer value to CC[n] register"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t[58]",
+                    "comment": "0x058-0x13F reserved (58 words) to reach EVENTS_COMPARE[0] at 0x140"
+                },
+                "EVENTS_COMPARE": {
+                    "type": "uint32_t[6]",
+                    "comment": "0x140 Compare event on CC[n] match"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t[42]",
+                    "comment": "0x158-0x1FF reserved (42 words) to reach SHORTS at 0x200"
+                },
+                "SHORTS": {
+                    "type": "uint32_t",
+                    "comment": "0x200 Shortcuts between local events and tasks"
+                },
+                "RESERVED3": {
+                    "type": "uint32_t[64]",
+                    "comment": "0x204-0x303 reserved (64 words) to reach INTENSET at 0x304"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x304 Enable interrupt"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x308 Disable interrupt"
+                },
+                "RESERVED4": {
+                    "type": "uint32_t[126]",
+                    "comment": "0x30C-0x503 reserved (126 words) to reach MODE at 0x504"
+                },
+                "MODE": {
+                    "type": "uint32_t",
+                    "comment": "0x504 Timer mode selection"
+                },
+                "BITMODE": {
+                    "type": "uint32_t",
+                    "comment": "0x508 Configure the number of bits used by the TIMER"
+                },
+                "RESERVED5": {
+                    "type": "uint32_t",
+                    "comment": "0x50C reserved (1 word)"
+                },
+                "PRESCALER": {
+                    "type": "uint32_t",
+                    "comment": "0x510 Timer prescaler register"
+                },
+                "RESERVED6": {
+                    "type": "uint32_t[11]",
+                    "comment": "0x514-0x53F reserved (11 words) to reach CC[0] at 0x540"
+                },
+                "CC": {
+                    "type": "uint32_t[6]",
+                    "comment": "0x540 Capture/Compare registers"
+                }
+            }
+        },
+        "NRF_RTC_Type": {
+            "description": "Real time counter (RTC0/1/2). TASKS/EVENTS layout with offset-preserving RESERVED arrays.",
+            "struct": {
+                "TASKS_START": {
+                    "type": "uint32_t",
+                    "comment": "0x000 Start RTC counter"
+                },
+                "TASKS_STOP": {
+                    "type": "uint32_t",
+                    "comment": "0x004 Stop RTC counter"
+                },
+                "TASKS_CLEAR": {
+                    "type": "uint32_t",
+                    "comment": "0x008 Clear RTC counter"
+                },
+                "TASKS_TRIGOVRFLW": {
+                    "type": "uint32_t",
+                    "comment": "0x00C Set COUNTER to 0xFFFFF0 to trigger overflow"
+                },
+                "RESERVED0": {
+                    "type": "uint32_t[60]",
+                    "comment": "0x010-0x0FF reserved (60 words) to reach EVENTS_TICK at 0x100"
+                },
+                "EVENTS_TICK": {
+                    "type": "uint32_t",
+                    "comment": "0x100 Event on COUNTER increment"
+                },
+                "EVENTS_OVRFLW": {
+                    "type": "uint32_t",
+                    "comment": "0x104 Event on COUNTER overflow"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t[14]",
+                    "comment": "0x108-0x13F reserved (14 words) to reach EVENTS_COMPARE[0] at 0x140"
+                },
+                "EVENTS_COMPARE": {
+                    "type": "uint32_t[4]",
+                    "comment": "0x140 Compare event on CC[n] match"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t[109]",
+                    "comment": "0x150-0x303 reserved (109 words) to reach INTENSET at 0x304"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x304 Enable interrupt"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x308 Disable interrupt"
+                },
+                "RESERVED3": {
+                    "type": "uint32_t[13]",
+                    "comment": "0x30C-0x33F reserved (13 words) to reach EVTEN at 0x340"
+                },
+                "EVTEN": {
+                    "type": "uint32_t",
+                    "comment": "0x340 Enable or disable event routing"
+                },
+                "EVTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x344 Enable event routing"
+                },
+                "EVTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x348 Disable event routing"
+                },
+                "RESERVED4": {
+                    "type": "uint32_t[110]",
+                    "comment": "0x34C-0x503 reserved (110 words) to reach COUNTER at 0x504"
+                },
+                "COUNTER": {
+                    "type": "uint32_t",
+                    "comment": "0x504 Current COUNTER value"
+                },
+                "PRESCALER": {
+                    "type": "uint32_t",
+                    "comment": "0x508 12-bit prescaler for COUNTER frequency"
+                },
+                "RESERVED5": {
+                    "type": "uint32_t[13]",
+                    "comment": "0x50C-0x53F reserved (13 words) to reach CC[0] at 0x540"
+                },
+                "CC": {
+                    "type": "uint32_t[4]",
+                    "comment": "0x540 Compare registers"
+                }
+            }
+        },
+        "NRF_CLOCK_Type": {
+            "description": "Clock management. TASKS/EVENTS layout with offset-preserving RESERVED arrays.",
+            "struct": {
+                "TASKS_HFCLKSTART": {
+                    "type": "uint32_t",
+                    "comment": "0x000 Start HFCLK crystal oscillator"
+                },
+                "TASKS_HFCLKSTOP": {
+                    "type": "uint32_t",
+                    "comment": "0x004 Stop HFCLK crystal oscillator"
+                },
+                "TASKS_LFCLKSTART": {
+                    "type": "uint32_t",
+                    "comment": "0x008 Start LFCLK source"
+                },
+                "TASKS_LFCLKSTOP": {
+                    "type": "uint32_t",
+                    "comment": "0x00C Stop LFCLK source"
+                },
+                "TASKS_CAL": {
+                    "type": "uint32_t",
+                    "comment": "0x010 Start calibration of LFRC oscillator"
+                },
+                "TASKS_CTSTART": {
+                    "type": "uint32_t",
+                    "comment": "0x014 Start calibration timer"
+                },
+                "TASKS_CTSTOP": {
+                    "type": "uint32_t",
+                    "comment": "0x018 Stop calibration timer"
+                },
+                "RESERVED0": {
+                    "type": "uint32_t[57]",
+                    "comment": "0x01C-0x0FF reserved (57 words) to reach EVENTS_HFCLKSTARTED at 0x100"
+                },
+                "EVENTS_HFCLKSTARTED": {
+                    "type": "uint32_t",
+                    "comment": "0x100 HFCLK oscillator started"
+                },
+                "EVENTS_LFCLKSTARTED": {
+                    "type": "uint32_t",
+                    "comment": "0x104 LFCLK started"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t",
+                    "comment": "0x108 reserved (1 word)"
+                },
+                "EVENTS_DONE": {
+                    "type": "uint32_t",
+                    "comment": "0x10C Calibration of LFCLK RC oscillator complete"
+                },
+                "EVENTS_CTTO": {
+                    "type": "uint32_t",
+                    "comment": "0x110 Calibration timer timeout"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t[5]",
+                    "comment": "0x114-0x127 reserved (5 words) to reach EVENTS_CTSTARTED at 0x128"
+                },
+                "EVENTS_CTSTARTED": {
+                    "type": "uint32_t",
+                    "comment": "0x128 Calibration timer has been started"
+                },
+                "EVENTS_CTSTOPPED": {
+                    "type": "uint32_t",
+                    "comment": "0x12C Calibration timer has been stopped"
+                },
+                "RESERVED3": {
+                    "type": "uint32_t[117]",
+                    "comment": "0x130-0x303 reserved (117 words) to reach INTENSET at 0x304"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x304 Enable interrupt"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x308 Disable interrupt"
+                },
+                "RESERVED4": {
+                    "type": "uint32_t[63]",
+                    "comment": "0x30C-0x407 reserved (63 words) to reach HFCLKRUN at 0x408"
+                },
+                "HFCLKRUN": {
+                    "type": "uint32_t",
+                    "comment": "0x408 Status indicating that HFCLKSTART task has been triggered"
+                },
+                "HFCLKSTAT": {
+                    "type": "uint32_t",
+                    "comment": "0x40C HFCLK status"
+                },
+                "RESERVED5": {
+                    "type": "uint32_t",
+                    "comment": "0x410 reserved (1 word)"
+                },
+                "LFCLKRUN": {
+                    "type": "uint32_t",
+                    "comment": "0x414 Status indicating that LFCLKSTART task has been triggered"
+                },
+                "LFCLKSTAT": {
+                    "type": "uint32_t",
+                    "comment": "0x418 LFCLK status"
+                },
+                "LFCLKSRCCOPY": {
+                    "type": "uint32_t",
+                    "comment": "0x41C Copy of LFCLKSRC register, set when LFCLKSTART triggered"
+                },
+                "RESERVED6": {
+                    "type": "uint32_t[62]",
+                    "comment": "0x420-0x517 reserved (62 words) to reach LFCLKSRC at 0x518"
+                },
+                "LFCLKSRC": {
+                    "type": "uint32_t",
+                    "comment": "0x518 Clock source for the LFCLK"
+                },
+                "RESERVED7": {
+                    "type": "uint32_t[7]",
+                    "comment": "0x51C-0x537 reserved (7 words) to reach CTIV at 0x538"
+                },
+                "CTIV": {
+                    "type": "uint32_t",
+                    "comment": "0x538 Calibration timer interval"
+                },
+                "RESERVED8": {
+                    "type": "uint32_t[8]",
+                    "comment": "0x53C-0x55B reserved (8 words) to reach TRACECONFIG at 0x55C"
+                },
+                "TRACECONFIG": {
+                    "type": "uint32_t",
+                    "comment": "0x55C Clocking options for the trace port debug interface"
+                }
+            }
+        },
+        "NRF_POWER_Type": {
+            "description": "Power control. TASKS/EVENTS layout with offset-preserving RESERVED arrays.",
+            "struct": {
+                "RESERVED0": {
+                    "type": "uint32_t[30]",
+                    "comment": "0x000-0x077 reserved (30 words) to reach TASKS_CONSTLAT at 0x078"
+                },
+                "TASKS_CONSTLAT": {
+                    "type": "uint32_t",
+                    "comment": "0x078 Enable constant latency mode"
+                },
+                "TASKS_LOWPWR": {
+                    "type": "uint32_t",
+                    "comment": "0x07C Enable low power mode (variable latency)"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t[34]",
+                    "comment": "0x080-0x107 reserved (34 words) to reach EVENTS_POFWARN at 0x108"
+                },
+                "EVENTS_POFWARN": {
+                    "type": "uint32_t",
+                    "comment": "0x108 Power failure warning"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x10C-0x113 reserved (2 words)"
+                },
+                "EVENTS_SLEEPENTER": {
+                    "type": "uint32_t",
+                    "comment": "0x114 CPU entered WFI/WFE sleep"
+                },
+                "EVENTS_SLEEPEXIT": {
+                    "type": "uint32_t",
+                    "comment": "0x118 CPU exited WFI/WFE sleep"
+                },
+                "EVENTS_USBDETECTED": {
+                    "type": "uint32_t",
+                    "comment": "0x11C Voltage supply detected on VBUS"
+                },
+                "EVENTS_USBREMOVED": {
+                    "type": "uint32_t",
+                    "comment": "0x120 Voltage supply removed from VBUS"
+                },
+                "EVENTS_USBPWRRDY": {
+                    "type": "uint32_t",
+                    "comment": "0x124 USB 3.3 V supply ready"
+                },
+                "RESERVED3": {
+                    "type": "uint32_t[119]",
+                    "comment": "0x128-0x303 reserved (119 words) to reach INTENSET at 0x304"
+                },
+                "INTENSET": {
+                    "type": "uint32_t",
+                    "comment": "0x304 Enable interrupt"
+                },
+                "INTENCLR": {
+                    "type": "uint32_t",
+                    "comment": "0x308 Disable interrupt"
+                },
+                "RESERVED4": {
+                    "type": "uint32_t[61]",
+                    "comment": "0x30C-0x3FF reserved (61 words) to reach RESETREAS at 0x400"
+                },
+                "RESETREAS": {
+                    "type": "uint32_t",
+                    "comment": "0x400 Reset reason"
+                },
+                "RESERVED5": {
+                    "type": "uint32_t[9]",
+                    "comment": "0x404-0x427 reserved (9 words) to reach RAMSTATUS at 0x428"
+                },
+                "RAMSTATUS": {
+                    "type": "uint32_t",
+                    "comment": "0x428 Deprecated - RAM status"
+                },
+                "RESERVED6": {
+                    "type": "uint32_t[3]",
+                    "comment": "0x42C-0x437 reserved (3 words) to reach USBREGSTATUS at 0x438"
+                },
+                "USBREGSTATUS": {
+                    "type": "uint32_t",
+                    "comment": "0x438 USB supply status"
+                },
+                "RESERVED7": {
+                    "type": "uint32_t[49]",
+                    "comment": "0x43C-0x4FF reserved (49 words) to reach SYSTEMOFF at 0x500"
+                },
+                "SYSTEMOFF": {
+                    "type": "uint32_t",
+                    "comment": "0x500 System OFF register"
+                },
+                "RESERVED8": {
+                    "type": "uint32_t[3]",
+                    "comment": "0x504-0x50F reserved (3 words) to reach POFCON at 0x510"
+                },
+                "POFCON": {
+                    "type": "uint32_t",
+                    "comment": "0x510 Power failure comparator configuration"
+                },
+                "RESERVED9": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x514-0x51B reserved (2 words) to reach GPREGRET at 0x51C"
+                },
+                "GPREGRET": {
+                    "type": "uint32_t",
+                    "comment": "0x51C General purpose retention register"
+                },
+                "GPREGRET2": {
+                    "type": "uint32_t",
+                    "comment": "0x520 General purpose retention register"
+                },
+                "RESERVED10": {
+                    "type": "uint32_t[21]",
+                    "comment": "0x524-0x577 reserved (21 words) to reach DCDCEN at 0x578"
+                },
+                "DCDCEN": {
+                    "type": "uint32_t",
+                    "comment": "0x578 Enable DC/DC converter for REG1 stage"
+                },
+                "RESERVED11": {
+                    "type": "uint32_t",
+                    "comment": "0x57C reserved (1 word) to reach DCDCEN0 at 0x580"
+                },
+                "DCDCEN0": {
+                    "type": "uint32_t",
+                    "comment": "0x580 Enable DC/DC converter for REG0 stage"
+                },
+                "RESERVED12": {
+                    "type": "uint32_t[47]",
+                    "comment": "0x584-0x63F reserved (47 words) to reach MAINREGSTATUS at 0x640"
+                },
+                "MAINREGSTATUS": {
+                    "type": "uint32_t",
+                    "comment": "0x640 Main supply status"
+                }
+            }
+        },
+        "NRF_FICR_Type": {
+            "description": "Factory Information Configuration Registers (read-only). nRF52840 partial layout, offset-correct.",
+            "struct": {
+                "RESERVED0": {
+                    "type": "uint32_t[4]",
+                    "comment": "0x000-0x00F reserved (4 words) to reach CODEPAGESIZE at 0x010"
+                },
+                "CODEPAGESIZE": {
+                    "type": "uint32_t",
+                    "comment": "0x010 Code memory page size in bytes"
+                },
+                "CODESIZE": {
+                    "type": "uint32_t",
+                    "comment": "0x014 Code memory size in number of pages"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t[18]",
+                    "comment": "0x018-0x05F reserved (18 words) to reach DEVICEID[0] at 0x060"
+                },
+                "DEVICEID": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x060 Device identifier (64-bit unique device ID, low/high words)"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t[6]",
+                    "comment": "0x068-0x07F reserved (6 words) to reach ER[0] at 0x080"
+                },
+                "ER": {
+                    "type": "uint32_t[4]",
+                    "comment": "0x080 Encryption root (128-bit)"
+                },
+                "IR": {
+                    "type": "uint32_t[4]",
+                    "comment": "0x090 Identity root (128-bit)"
+                },
+                "DEVICEADDRTYPE": {
+                    "type": "uint32_t",
+                    "comment": "0x0A0 Device address type"
+                },
+                "DEVICEADDR": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x0A4 Device address (48-bit, low/high words)"
+                }
+            }
+        },
+        "NRF_UICR_Type": {
+            "description": "User Information Configuration Registers (nonvolatile). nRF52840 partial layout, offset-correct.",
+            "struct": {
+                "UNUSED0": {
+                    "type": "uint32_t",
+                    "comment": "0x000 Unused/reserved"
+                },
+                "RESERVED0": {
+                    "type": "uint32_t[4]",
+                    "comment": "0x004-0x013 reserved (4 words) to reach NRFFW[0] at 0x014"
+                },
+                "NRFFW": {
+                    "type": "uint32_t[13]",
+                    "comment": "0x014 Reserved for Nordic firmware design"
+                },
+                "RESERVED1": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x048-0x04F reserved (2 words) to reach NRFHW[0] at 0x050"
+                },
+                "NRFHW": {
+                    "type": "uint32_t[12]",
+                    "comment": "0x050 Reserved for Nordic hardware design"
+                },
+                "CUSTOMER": {
+                    "type": "uint32_t[32]",
+                    "comment": "0x080 Reserved for customer"
+                },
+                "RESERVED2": {
+                    "type": "uint32_t[64]",
+                    "comment": "0x100-0x1FF reserved (64 words) to reach PSELRESET[0] at 0x200"
+                },
+                "PSELRESET": {
+                    "type": "uint32_t[2]",
+                    "comment": "0x200 Mapping of the nRESET function (two pin assignments)"
+                },
+                "APPROTECT": {
+                    "type": "uint32_t",
+                    "comment": "0x208 Access port protection"
+                },
+                "NFCPINS": {
+                    "type": "uint32_t",
+                    "comment": "0x20C Setting of pins dedicated to NFC functionality (NFC antenna or GPIO)"
+                }
+            }
+        },
+        "nrfx_uarte_config_t": {
+            "description": "nrfx UARTE driver configuration. Field set/order varies across nrfx versions; common nRF52 layout encoded here.",
+            "struct": {
+                "pseltxd": {
+                    "type": "uint32_t",
+                    "comment": "TXD pin number (uint32_t pin)"
+                },
+                "pselrxd": {
+                    "type": "uint32_t",
+                    "comment": "RXD pin number"
+                },
+                "pselcts": {
+                    "type": "uint32_t",
+                    "comment": "CTS pin number"
+                },
+                "pselrts": {
+                    "type": "uint32_t",
+                    "comment": "RTS pin number"
+                },
+                "p_context": {
+                    "type": "void *",
+                    "comment": "User context passed to the event handler"
+                },
+                "hwfc": {
+                    "type": "uint32_t",
+                    "comment": "nrf_uarte_hwfc_t - Flow control configuration"
+                },
+                "parity": {
+                    "type": "uint32_t",
+                    "comment": "nrf_uarte_parity_t - Parity configuration"
+                },
+                "baudrate": {
+                    "type": "uint32_t",
+                    "comment": "nrf_uarte_baudrate_t - Baud rate"
+                },
+                "interrupt_priority": {
+                    "type": "uint8_t",
+                    "comment": "Interrupt priority"
+                }
+            }
+        },
+        "nrfx_spim_config_t": {
+            "description": "nrfx SPIM driver configuration. Field set/order varies across nrfx versions; common nRF52 layout encoded here.",
+            "struct": {
+                "sck_pin": {
+                    "type": "uint32_t",
+                    "comment": "SCK pin number"
+                },
+                "mosi_pin": {
+                    "type": "uint32_t",
+                    "comment": "MOSI pin number (NRFX_SPIM_PIN_NOT_USED to disable)"
+                },
+                "miso_pin": {
+                    "type": "uint32_t",
+                    "comment": "MISO pin number (NRFX_SPIM_PIN_NOT_USED to disable)"
+                },
+                "ss_pin": {
+                    "type": "uint32_t",
+                    "comment": "Slave select pin number (NRFX_SPIM_PIN_NOT_USED to disable)"
+                },
+                "ss_active_high": {
+                    "type": "uint8_t",
+                    "comment": "bool - Polarity of the SS line (true = active high)"
+                },
+                "irq_priority": {
+                    "type": "uint8_t",
+                    "comment": "Interrupt priority"
+                },
+                "orc": {
+                    "type": "uint8_t",
+                    "comment": "Over-run character clocked out when no TX data available"
+                },
+                "frequency": {
+                    "type": "uint32_t",
+                    "comment": "nrf_spim_frequency_t - SPI frequency"
+                },
+                "mode": {
+                    "type": "uint32_t",
+                    "comment": "nrf_spim_mode_t - SPI mode (CPOL/CPHA)"
+                },
+                "bit_order": {
+                    "type": "uint32_t",
+                    "comment": "nrf_spim_bit_order_t - SPI bit order (MSB/LSB first)"
+                }
+            }
+        }
+    }
+}
